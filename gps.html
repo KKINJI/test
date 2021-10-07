@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>gps</title>
+    
+</head>
+<body>
+<!-- 지도를 표시할 div 입니다 -->
+<div id="map" style="width:100%;height:100vh;"></div>
+
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=db5e240a23cac4964a755f6c22cddd21"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(36.35613994325377, 127.33330258912929), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+var markerG=null;
+var watchID;
+
+ function changed(pos) {
+
+    var myLatlng = new kakao.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
+
+    if(markerG==null){
+
+        map.panTo(myLatlng);
+
+ 				// 지도 이미지 갱신
+        var markerImage = new kakao.maps.MarkerImage("point.png", new kakao.maps.Size(20, 20));
+        markerG = new kakao.maps.Marker({
+					image: markerImage,
+					position: myLatlng
+				});
+        markerG.setMap(map);
+    }else{
+        markerG.setPosition(myLatlng);
+        map.panTo(myLatlng);
+    }
+}
+var options = { // watchPosition()의 마지막 매개 변수로 전달
+						enableHighAccuracy: true,
+						timeout: 5000,
+						maximumAge: 0 };
+var watchID = navigator.geolocation.watchPosition(changed);
+</script>
+</body>
+</html>

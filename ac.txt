@@ -1,0 +1,1970 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<script type ="text/javascript" src="map.js"> </script>
+
+<style>
+
+
+input[type=text], select {
+  width: 55px;  
+  padding: 0px 0px;
+  margin: 2px 2px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin-bottom: 0px;
+  vertical-align: center;  
+  height: 18px;font-size: 12px;line-height: 18px;  
+  z-index: 10;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+html, body {width:100%;height:100%;margin:0;padding:0;overflow: hidden;} 
+
+.map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
+
+.radius_border{border:1px solid #919191;border-radius:5px;}  
+
+
+#container {overflow:hidden;height:100%;position:relative;}
+#mapWrapper {width:100%;height:100%;z-index:1;}
+#rvWrapper {width:100%;height:40%;z-index:0;}
+#container.view_roadview #mapWrapper {width: 100%;height:60%;}
+
+#menu_wrap_m {position:absolute;left:0;bottom:62px;height:240px;width:170px;margin:3px 0 5px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 9999;font-size:13px;border-radius: 0px;line-height:22px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+
+#menu_wrap_m hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#menu_wrap_m .option{text-align: center;}
+
+.custom_typecontrol_m {position:absolute;bottom:37px;left:10px;overflow:hidden;width:80px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol_m span {display:block;width:40px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol_m .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol_m .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol_m .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol_m .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol_m .selected_btn:hover {color:#fff;}   
+
+.custom_typecontrol4_m {position:absolute;bottom:37px; left:100px;overflow:hidden;width:80px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol4_m span {display:block;width:40px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol4_m .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol4_m .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol4_m .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol4_m .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol4_m .selected_btn:hover {color:#fff;}   
+
+
+.custom_typecontrol2_m {position:absolute;bottom:5px;left:10px;overflow:hidden;width:80px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol2_m span {display:block;width:40px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol2_m .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol2_m .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol2_m .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol2_m .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol2_m .selected_btn:hover {color:#fff;}   
+
+.custom_typecontrol3_m {position:absolute;bottom:5px;left:100px;overflow:hidden;width:80px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol3_m span {display:block;width:40px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol3_m .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol3_m .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol3_m .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol3_m .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol3_m .selected_btn:hover {color:#fff;}   
+
+.custom_typecontrol5_m {position:absolute;bottom:5px;right:50px;overflow:hidden;width:80px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol5_m span {display:block;width:40px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol5_m .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol5_m .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol5_m .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol5_m .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol5_m .selected_btn:hover {color:#fff;}   
+
+.custom_typecontrol6_m {position:absolute;bottom:37px;right:50px;overflow:hidden;width:80px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol6_m span {display:block;width:40px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol6_m .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol6_m .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol6_m .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol6_m .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol6_m .selected_btn:hover {color:#fff;}   
+
+
+.custom_typecontrol7_m {position:absolute;bottom:70px;right:50px;overflow:hidden;width:40px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol7_m span {display:block;width:40px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol7_m .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol7_m .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol7_m .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol7_m .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol7_m .selected_btn:hover {color:#fff;}   
+
+
+.custom_typecontrol8_m {position:absolute;bottom:102px;right:50px;overflow:hidden;width:40px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol8_m span {display:block;width:40px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol8_m .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol8_m .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol8_m .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol8_m .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol8_m .selected_btn:hover {color:#fff;}   
+
+
+
+#roadviewControl_m {position:absolute;bottom:75px;right:97px;width:20px;height:25px;padding:2px;z-index: 100;background: #f7f7f7;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;cursor: pointer;}
+#roadviewControl_m span {background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mapworker.png) no-repeat;  padding-left:23px;height:24px;font-size: 12px;display: inline-block;line-height: 2;font-weight: bold;}
+#roadviewControl_m.active {background: #ccc;box-shadow: 0px 1px #5F616D;border: 1px solid #7F818A;}
+#roadviewControl_m.active span {background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mapworker_on.png) no-repeat;color: #4C4E57;}
+
+
+
+
+.label {margin-bottom: 96px;}
+.label * {display: inline-block;vertical-align: top;}
+.label .left {background: url("https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png") no-repeat;display: inline-block;height: 24px;overflow: hidden;vertical-align: top;width: 7px;}
+.label .center {background: url(https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png) repeat-x;display: inline-block;height: 24px;font-size: 12px;line-height: 24px;}
+.label .right {background: url("https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png") -1px 0  no-repeat;display: inline-block;height: 24px;overflow: hidden;width: 6px;}
+
+
+.showlistbox {padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;)}
+
+
+   
+#roadviewControl {position:absolute;bottom:15px;left:320px;width:65px;height:25px;padding:2px;z-index: 1;background: #f7f7f7;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;cursor: pointer;}
+#roadviewControl span {background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mapworker.png) no-repeat;  padding-left:23px;height:24px;font-size: 12px;display: inline-block;line-height: 2;font-weight: bold;}
+#roadviewControl.active {background: #ccc;box-shadow: 0px 1px #5F616D;border: 1px solid #7F818A;}
+#roadviewControl.active span {background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mapworker_on.png) no-repeat;color: #4C4E57;}
+#close {position: absolute;padding: 4px;bottom: 200px;right: 10px;cursor: pointer;background: #fff;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;}
+#close .img {display: block;background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;width: 14px;height: 14px;}    
+
+
+
+
+.info {position:relative;top:5px;left:5px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;font-size:12px;padding:5px;background:#fff;list-style:none;margin:0;} 
+.info:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}    
+.info .label {display:inline-block;width:50px;}
+.number {font-weight:bold;color:#00a0e9;} 
+
+
+
+:root {
+  --button-color: #ffffff;
+  --button-bg-color: #0d6efd;
+  --button-hover-bg-color: #025ce2;
+}
+
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  background: var(--button-bg-color);
+  color: var(--button-color);
+  
+  margin: 0.1rem;
+  padding: 0px 0.1rem;
+  
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  
+  border: none;
+  border-radius: 4px;
+  
+  display: inline-block;
+  width: auto;
+  
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  
+  cursor: pointer;
+  
+  transition: 0.5s;
+}
+
+button.success {
+  --button-bg-color: #28a745;
+  --button-hover-bg-color: #218838;
+}
+
+button.error {
+  --button-bg-color: #dc3545;
+  --button-hover-bg-color: #c82333;
+}
+
+button.warning {
+  --button-color: #212529;
+  --button-bg-color: #ffc107;
+  --button-hover-bg-color: #e0a800;
+}
+
+button:active,
+button:hover,
+button:focus {
+  background: var(--button-hover-bg-color);
+  outline: 0;
+}
+button:disabled {
+  opacity: 0.5;
+}
+
+
+</style>    
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d7bfce9066384f13eae385f24734c90&libraries=services"></script>
+
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+        
+        mark_imgsrc = 'https://tistory4.daumcdn.net/tistory/1873809/skin/images/';        
+        u_mark_imgsrc = 'https://ajubang.com/mm/op/user/';                
+
+        function setOverlayMapTypeId1() {
+    
+    var chkuseDistrict = document.getElementById('chkuseDistrict');
+    
+    // 지도 타입을 제거합니다
+   for (var type in mapTypes) {
+       map.removeOverlayMapTypeId(mapTypes[type]);    
+   }
+    // 지적편집도정보 체크박스가 체크되어있으면 지도에 지적편집도정보 지도타입을 추가합니다
+        map.addOverlayMapTypeId(mapTypes.useDistrict);       
+        btnGround.className = 'selected_btn';
+        btnGroundHide.className = 'btn';     
+} 
+
+function setOverlayMapTypeId2() {
+    
+    var chkuseDistrict = document.getElementById('chkuseDistrict');
+    // 지도 타입을 제거합니다
+   for (var type in mapTypes) {
+       map.removeOverlayMapTypeId(mapTypes[type]);    
+   }
+   
+    btnGround.className = 'btn';
+    btnGroundHide.className = 'selected_btn';     
+      
+} 
+
+
+
+
+        function mapCurrentPosition2(){
+    // 내 위치 표시
+
+        navigator.geolocation.getCurrentPosition(function(pos) {
+
+            myPosLat = pos.coords.latitude;
+            myPosLng = pos.coords.longitude;
+
+//			marker.setPosition(LatLng(myPosLat, myPosLng));
+			myMarker.setPosition(new kakao.maps.LatLng(myPosLat, myPosLng));
+            map.setCenter(new kakao.maps.LatLng(myPosLat, myPosLng));
+
+			myMarker.setVisible(true);
+        btnCurrentMe.className = 'selected_btn';
+        btnCurrentHideMe.className = 'btn';     
+
+        });
+    //--내 위치 표시
+}
+
+
+function mapCurrentPositionHide(){
+			myMarker.setVisible(false);
+        btnCurrentMe.className = 'btn';
+        btnCurrentHideMe.className = 'selected_btn';     
+}
+
+    
+    
+    function setMapType(maptype) { 
+    var roadmapControl = document.getElementById('btnRoadmap');
+    var skyviewControl = document.getElementById('btnSkyview'); 
+
+    if (maptype === 'roadmap') {
+        map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);    
+        roadmapControl.className = 'selected_btn';
+        skyviewControl.className = 'btn';      
+    } 
+    if (maptype === 'skyview') {
+        map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);    
+        skyviewControl.className = 'selected_btn';
+        roadmapControl.className = 'btn';        
+    }
+}        
+</script>
+
+<title>제주특별자치도 서귀포 호텔업</title>
+
+
+<div id="roadviewControl_m" onclick="setRoadviewRoad_m()"><span></span></div>
+<div id="container">
+<div id="mapWrapper">
+        <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
+
+    </div>    
+    <div id="rvWrapper">
+        <div id="roadview" style="width:100%;height:100%;"></div> <!-- 로드뷰를 표시할 div 입니다 -->
+        <div id="close" title="로드뷰닫기" onclick="closeRoadview()"><span class="img"></span></div>
+    </div>
+
+
+</div>
+    <div class="custom_typecontrol_m radius_border">
+        <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')">지도</span>
+        <span id="btnSkyview" class="btn" onclick="setMapType('skyview')">스카이</span>
+    </div>
+
+<div class="custom_typecontrol3_m radius_border">
+	<span id="btnGround" class="btn" onclick="setOverlayMapTypeId1()">지적도</span>
+	<span id="btnGroundHide" class="selected_btn" onclick="setOverlayMapTypeId2()">숨김</span>
+</div>
+
+<div class="custom_typecontrol2_m radius_border">
+	<span id="btnCurrentMe" class="selected_btn" onclick="mapCurrentPosition2()">내위치</span>
+	<span id="btnCurrentHideMe" class="btn" onclick="mapCurrentPositionHide()">숨김</span>
+</div>
+
+<div class="custom_typecontrol5_m radius_border">
+	<span id="btnAllDrag" class="btn" onclick="makeAllDrag()">마커품</span>
+	<span id="btnLockDrag" class="selected_btn" onclick="makeLockDrag()">잠금</span>
+</div>
+
+<div class="custom_typecontrol6_m radius_border">
+	<span id="btnTTShow" class="selected_btn" onclick="ShowAllTitle()">타이틀</span>
+	<span id="btnTTHide" class="btn" onclick="HideAllTitle()">숨김</span>
+</div>
+
+<div class="custom_typecontrol4_m radius_border">
+	<span id="btnTitleList" class="selected_btn" onclick="setShowList1m()">목록</span>
+	<span id="btnTitleListHide" class="btn" onclick="setShowList2m()">숨김</span>
+</div>
+
+
+<div class="custom_typecontrol7_m radius_border">
+	<span class="btn" onclick="gotomode(2)">가로</span>
+</div>
+
+<div class="custom_typecontrol8_m radius_border">
+	<span class="btn" onclick="gotomode(4)">설정</span>
+</div>
+
+
+
+
+
+<script>
+
+
+Kakao.init('5d7bfce9066384f13eae385f24734c90');
+
+function navi2(m_name, p_m_y, p_m_x, type) {
+
+    var m_x = parseFloat(p_m_x);
+    var m_y = parseFloat(p_m_y);     
+
+    if (type != 1) {  
+        Kakao.Navi.start({
+        name: m_name,
+        x: m_x,
+        y: m_y,
+        coordType: 'wgs84'
+        })
+    } else  window.open('https://apis.openapi.sk.com/tmap/app/routes?appKey=l7xx07fae618b9604b2680aee9097f5e57a0&name='+m_name+'&lon='+m_x+'&lat='+m_y);
+
+}
+
+
+var myMarker;
+
+navigator.geolocation.getCurrentPosition(function(pos) {
+
+		myPosLat = pos.coords.latitude;
+		myPosLng = pos.coords.longitude;
+
+		var markerImage = new kakao.maps.MarkerImage("/map/pin_me.png", new kakao.maps.Size(56, 49), {offset: new kakao.maps.Point(28, 49)});
+		myMarker = new kakao.maps.Marker({
+			map: map,
+			position: new kakao.maps.LatLng(myPosLat, myPosLng),
+			image: markerImage,
+			title : "내위치"
+		});
+					myMarker.setVisible(true);
+
+});
+
+
+</script>
+    
+<script>
+
+var markers = [];
+var customOverlays = [];
+var infowindows = [];
+
+var m_showlist = [{ "LAT":33.49399, "LNG" :126.53111 }];
+
+var m_map_info;
+
+
+imageSize = new kakao.maps.Size(40,42), // 마커이미지의 크기입니다
+imageOption = {offset: new kakao.maps.Point(14,42)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.        
+
+var geocoder = new kakao.maps.services.Geocoder();    
+
+</script> 
+
+
+<style>
+.maptable {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 250px;
+  font-size:12px;
+  table-layout: fixed;  
+  font-family:Malgun Gothic, 맑은 고딕, sans-serif;);
+  
+}
+
+td, th {
+  border: 0px solid #dddddd;
+  text-align: left;
+  padding: 3px;
+}
+
+.navitable {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 200px;
+  font-size:12px;
+  font-family:Malgun Gothic, 맑은 고딕, sans-serif;);
+  
+}
+
+.sel_text:hover { background:#cdcdcd; }
+
+
+
+</style>
+
+<script>        
+
+    
+var positions = [
+    {         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("1.그랑빌가족호텔",33.50792776387453,126.56494914074455,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(1) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(1) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>그랑빌 가족호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중문관광로 17</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.50792776387453,126.56494914074455</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 42, 전화번호 : 064-739-9994</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[1] value = 0> <b>연번</b> 1<input  id=input_MP_ID[1] value = "TT002_0001" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[1] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(1) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.50792776387453,126.56494914074455), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm1.png', imageSize, imageOption),title1:"그랑빌 가족호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("2.중문빌리지가족호텔",33.242357933514356,126.38546161897295,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(2) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(2) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>중문빌리지 가족호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 예래로 270</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.242357933514356,126.38546161897295</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 30, 전화번호 : 064-738-3151</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[2] value = 0> <b>연번</b> 2<input  id=input_MP_ID[2] value = "TT002_0002" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[2] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(2) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.242357933514356,126.38546161897295), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm2.png', imageSize, imageOption),title1:"중문빌리지 가족호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("3.송악리조트",33.211734158,126.291484187,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(3) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(3) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>송악리조트</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 대정읍 형제해안로 256-5</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.211734158,126.291484187</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 30, 전화번호 : 064-794-6307</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[3] value = 0> <b>연번</b> 3<input  id=input_MP_ID[3] value = "TT002_0003" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[3] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(3) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.211734158,126.291484187), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm3.png', imageSize, imageOption),title1:"송악리조트",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("4.담앤루",33.245764301,126.451328296,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(4) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(4) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>담앤루</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 이어도로343번길 63</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.245764301,126.451328296</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 43, 전화번호 : 064-739-6617</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[4] value = 0> <b>연번</b> 4<input  id=input_MP_ID[4] value = "TT002_0004" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[4] rows=3 cols=24 >완료</textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(4) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.245764301,126.451328296), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/gm4.png', imageSize, imageOption),title1:"담앤루",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("5.뷰티플리조트",33.243711766,126.446634405,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(5) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(5) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>뷰티플리조트</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 이어도로253번길 2</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.243711766,126.446634405</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 32, 전화번호 : 064-738-7407</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[5] value = 0> <b>연번</b> 5<input  id=input_MP_ID[5] value = "TT002_0005" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[5] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(5) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.243711766,126.446634405), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm5.png', imageSize, imageOption),title1:"뷰티플리조트",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("6.중문리조트",33.262572886,126.415633185,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(6) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(6) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>중문리조트</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 색달로 117</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.262572886,126.415633185</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 44, 전화번호 : 064-738-0085</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[6] value = 0> <b>연번</b> 6<input  id=input_MP_ID[6] value = "TT002_0006" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[6] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(6) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.262572886,126.415633185), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm6.png', imageSize, imageOption),title1:"중문리조트",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("7.아라온리조트",33.262921340,126.383758287,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(7) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(7) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>아라온리조트</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 소보리당로 220</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.262921340,126.383758287</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 55, 전화번호 :</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[7] value = 0> <b>연번</b> 7<input  id=input_MP_ID[7] value = "TT002_0007" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[7] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(7) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.262921340,126.383758287), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm7.png', imageSize, imageOption),title1:"아라온리조트",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("8.중문통나무가족호텔",33.264079932,126.451087535,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(8) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(8) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>중문통나무가족호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중산간서로594번길 7-28</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.264079932,126.451087535</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 30, 전화번호 : 064-738-8383</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[8] value = 0> <b>연번</b> 8<input  id=input_MP_ID[8] value = "TT002_0008" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[8] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(8) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.264079932,126.451087535), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm8.png', imageSize, imageOption),title1:"중문통나무가족호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("9.와이리조트제주",33.242554738,126.328096998,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(9) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(9) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>와이리조트 제주</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 안덕면 화순중앙로124번길 75</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.242554738,126.328096998</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 32, 전화번호 : 064-794-7007</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[9] value = 0> <b>연번</b> 9<input  id=input_MP_ID[9] value = "TT002_0009" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[9] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(9) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.242554738,126.328096998), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm9.png', imageSize, imageOption),title1:"와이리조트 제주",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("10.코델리아리조트",33.459019831,126.910033869,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(10) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(10) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>코델리아리조트</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 일주동로4120번길 23-20</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.459019831,126.910033869</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 104, 전화번호 : 070-4548-2200</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[10] value = 0> <b>연번</b> 10<input  id=input_MP_ID[10] value = "TT002_0010" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[10] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(10) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.459019831,126.910033869), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm10.png', imageSize, imageOption),title1:"코델리아리조트",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("11.아름다운리조트",33.475208008,126.909963065,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(11) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(11) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>아름다운리조트</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 해맞이해안로 2644</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.475208008,126.909963065</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 38, 전화번호 : 064-782-1300</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[11] value = 0> <b>연번</b> 11<input  id=input_MP_ID[11] value = "TT002_0011" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[11] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(11) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.475208008,126.909963065), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm11.png', imageSize, imageOption),title1:"아름다운리조트",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("12.엔파제주호텔",33.429733389,126.862065231,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(12) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(12) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>엔파제주호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 서성일로 726-11</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.429733389,126.862065231</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 31, 전화번호 : 064-783-1000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[12] value = 0> <b>연번</b> 12<input  id=input_MP_ID[12] value = "TT002_0012" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[12] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(12) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.429733389,126.862065231), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm12.png', imageSize, imageOption),title1:"엔파제주호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("13.봄그리고가을리조트",33.474084326,126.911039077,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(13) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(13) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>봄그리고가을리조트</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 해맞이해안로 2660</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.474084326,126.911039077</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 46, 전화번호 : 064-784-2211</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[13] value = 0> <b>연번</b> 13<input  id=input_MP_ID[13] value = "TT002_0013" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[13] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(13) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.474084326,126.911039077), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm13.png', imageSize, imageOption),title1:"봄그리고가을리조트",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("14.H.Y초이호스텔",33.247065994,126.558336382,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(14) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(14) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>H.Y 초이호스텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 태평로335번길 11-1</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.247065994,126.558336382</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 32, 전화번호 : 064-732-3070</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[14] value = 0> <b>연번</b> 14<input  id=input_MP_ID[14] value = "TT002_0014" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[14] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(14) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.247065994,126.558336382), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm14.png', imageSize, imageOption),title1:"H.Y 초이호스텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("15.파미유리조트가족호텔",33.235011272,126.503012808,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(15) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(15) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>파미유리조트 가족호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 이어도로 826-6</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.235011272,126.503012808</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 35, 전화번호 : 064-738-9186</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[15] value = 0> <b>연번</b> 15<input  id=input_MP_ID[15] value = "TT002_0015" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[15] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(15) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.235011272,126.503012808), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm15.png', imageSize, imageOption),title1:"파미유리조트 가족호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("16.호텔섬오름",33.233061146,126.510406450,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(16) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(16) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>호텔 섬오름</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 막숙포로 114</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.233061146,126.510406450</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 53, 전화번호 : 064-800-7200</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[16] value = 0> <b>연번</b> 16<input  id=input_MP_ID[16] value = "TT002_0016" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[16] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(16) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.233061146,126.510406450), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm16.png', imageSize, imageOption),title1:"호텔 섬오름",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("17.㈜일레인",33.254679926,126.439028944,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(17) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(17) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>㈜일레인</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 일주서로 660</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.254679926,126.439028944</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 42, 전화번호 : 064-738-2013</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[17] value = 0> <b>연번</b> 17<input  id=input_MP_ID[17] value = "TT002_0017" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[17] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(17) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.254679926,126.439028944), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm17.png', imageSize, imageOption),title1:"㈜일레인",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("18.봄그리고가을가족호텔",33.474636332,126.910506113,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(18) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(18) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>봄그리고가을 가족호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 해맞이해안로 2652</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.474636332,126.910506113</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 86, 전화번호 : 064-784-2211</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[18] value = 0> <b>연번</b> 18<input  id=input_MP_ID[18] value = "TT002_0018" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[18] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(18) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.474636332,126.910506113), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm18.png', imageSize, imageOption),title1:"봄그리고가을 가족호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("19.토스카나호텔",33.265933558,126.484696289,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(19) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(19) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>토스카나호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 용흥로66번길 158-7</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.265933558,126.484696289</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 99, 전화번호 : 064-735-7000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[19] value = 0> <b>연번</b> 19<input  id=input_MP_ID[19] value = "TT002_0019" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[19] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(19) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.265933558,126.484696289), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm19.png', imageSize, imageOption),title1:"토스카나호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("20.성산아쿠아비치호텔",33.448371785,126.911977389,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(20) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(20) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>성산아쿠아비치호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 일주동로 4258</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.448371785,126.911977389</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 61, 전화번호 : 064-780-3000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[20] value = 0> <b>연번</b> 20<input  id=input_MP_ID[20] value = "TT002_0020" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[20] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(20) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.448371785,126.911977389), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm20.png', imageSize, imageOption),title1:"성산아쿠아비치호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("21.호텔아로하",33.466521617,126.931059094,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(21) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(21) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>호텔아로하</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 성산등용로 40</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.466521617,126.931059094</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 34, 전화번호 : 064-782-3100</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[21] value = 0> <b>연번</b> 21<input  id=input_MP_ID[21] value = "TT002_0021" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[21] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(21) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.466521617,126.931059094), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm21.png', imageSize, imageOption),title1:"호텔아로하",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("22.더포그레이스호텔앤리조트",33.473414835,126.910448168,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(22) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(22) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>더포그레이스호텔앤리조트</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 해맞이해안로 2670</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.473414835,126.910448168</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 144, 전화번호 : 064-797-7700</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[22] value = 0> <b>연번</b> 22<input  id=input_MP_ID[22] value = "TT002_0022" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[22] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(22) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.473414835,126.910448168), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm22.png', imageSize, imageOption),title1:"더포그레이스호텔앤리조트",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("23.브리즈베이호텔",33.466600267,126.930850484,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(23) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(23) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>브리즈베이호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 성산등용로 42</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.466600267,126.930850484</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 40, 전화번호 : 064-784-0000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[23] value = 0> <b>연번</b> 23<input  id=input_MP_ID[23] value = "TT002_0023" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[23] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(23) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.466600267,126.930850484), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm23.png', imageSize, imageOption),title1:"브리즈베이호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("24.제이뷰호텔",33.264739891,126.416450955,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(24) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(24) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>제이뷰호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중산간서로 935</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.264739891,126.416450955</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 37, 전화번호 : 064-739-5200</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[24] value = 0> <b>연번</b> 24<input  id=input_MP_ID[24] value = "TT002_0024" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[24] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(24) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.264739891,126.416450955), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm24.png', imageSize, imageOption),title1:"제이뷰호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("25.호텔휴식서귀포",33.250371726,126.559532927,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(25) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(25) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>호텔 휴식 서귀포</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중앙로71번길 17</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.250371726,126.559532927</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 74, 전화번호 : 064-730-5000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[25] value = 0> <b>연번</b> 25<input  id=input_MP_ID[25] value = "TT002_0025" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[25] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(25) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.250371726,126.559532927), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm25.png', imageSize, imageOption),title1:"호텔 휴식 서귀포",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("26.코델리아S호텔",33.454927840,126.910274976,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(26) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(26) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>코델리아S호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 일주동로 4186</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.454927840,126.910274976</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 236, 전화번호 : 064-783-0053</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[26] value = 0> <b>연번</b> 26<input  id=input_MP_ID[26] value = "TT002_0026" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[26] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(26) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.454927840,126.910274976), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm26.png', imageSize, imageOption),title1:"코델리아S호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("27.썬라이즈호텔섭지코지점",33.436654141,126.918304290,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(27) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(27) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>썬라이즈호텔 섭지코지점</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 신양로 83</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.436654141,126.918304290</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 40, 전화번호 : 064-784-7848</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[27] value = 0> <b>연번</b> 27<input  id=input_MP_ID[27] value = "TT002_0027" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[27] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(27) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.436654141,126.918304290), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm27.png', imageSize, imageOption),title1:"썬라이즈호텔 섭지코지점",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("28.제이앤비가족호텔",33.260779389,126.592682184,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(28) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(28) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>제이앤비 가족호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 토평남로30번길 10-8</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.260779389,126.592682184</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 31, 전화번호 : 064-733-8864</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[28] value = 0> <b>연번</b> 28<input  id=input_MP_ID[28] value = "TT002_0028" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[28] rows=3 cols=24 >완료</textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(28) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.260779389,126.592682184), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/gm28.png', imageSize, imageOption),title1:"제이앤비 가족호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("29.글레즈하임호텔",33.236639226,126.497902355,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(29) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(29) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>글레즈하임호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 이어도로 777</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.236639226,126.497902355</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 42, 전화번호 : 064-735-0200</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>가족호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[29] value = 0> <b>연번</b> 29<input  id=input_MP_ID[29] value = "TT002_0029" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[29] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(29) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.236639226,126.497902355), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm29.png', imageSize, imageOption),title1:"글레즈하임호텔",kind1:"가족호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("30.(주)호텔신라제주신라",33.246803479,126.407178451,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(30) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(30) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>(주)호텔신라 제주신라</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중문관광로72번길 75</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.246803479,126.407178451</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 429, 전화번호 : 064-735-5114</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[30] value = 0> <b>연번</b> 30<input  id=input_MP_ID[30] value = "TT002_0030" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[30] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(30) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.246803479,126.407178451), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm30.png', imageSize, imageOption),title1:"(주)호텔신라 제주신라",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("31.㈜호텔롯데롯데호텔제주",33.247745784,126.411305401,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(31) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(31) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>㈜호텔롯데 롯데호텔 제주</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중문관광로72번길 35</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.247745784,126.411305401</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 500, 전화번호 : 064-731-1000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[31] value = 0> <b>연번</b> 31<input  id=input_MP_ID[31] value = "TT002_0031" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[31] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(31) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.247745784,126.411305401), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm31.png', imageSize, imageOption),title1:"㈜호텔롯데 롯데호텔 제주",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("32.더쇼어호텔제주",33.244616077,126.405972080,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(32) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(32) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>더 쇼어호텔 제주</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중문관광로72번길 114</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.244616077,126.405972080</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 224, 전화번호 : 064-733-1234</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[32] value = 0> <b>연번</b> 32<input  id=input_MP_ID[32] value = "TT002_0032" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[32] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(32) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.244616077,126.405972080), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm32.png', imageSize, imageOption),title1:"더 쇼어호텔 제주",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("33.㈜교원스위트호텔제주",33.248980894,126.408524524,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(33) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(33) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>㈜교원 스위트호텔 제주</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중문관광로72번길 67</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.248980894,126.408524524</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 90, 전화번호 : 064-738-3800</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[33] value = 0> <b>연번</b> 33<input  id=input_MP_ID[33] value = "TT002_0033" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[33] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(33) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.248980894,126.408524524), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm33.png', imageSize, imageOption),title1:"㈜교원 스위트호텔 제주",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("34.서귀포KAL호텔",33.244325252,126.580794352,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(34) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(34) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>서귀포KAL호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 칠십리로 242</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.244325252,126.580794352</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 225, 전화번호 : 064-733-2001</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[34] value = 0> <b>연번</b> 34<input  id=input_MP_ID[34] value = "TT002_0034" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[34] rows=3 cols=24 >완료</textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(34) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.244325252,126.580794352), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/gm34.png', imageSize, imageOption),title1:"서귀포KAL호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("35.해비치호텔",33.322955640,126.844666295,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(35) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(35) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>해비치호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 표선면 민속해안로 537</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.322955640,126.844666295</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 288, 전화번호 : 064-780-8000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[35] value = 0> <b>연번</b> 35<input  id=input_MP_ID[35] value = "TT002_0035" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[35] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(35) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.322955640,126.844666295), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm35.png', imageSize, imageOption),title1:"해비치호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("36.WE호텔",33.286452866,126.444692272,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(36) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(36) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>WE호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 1100로 453-95</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.286452866,126.444692272</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 86, 전화번호 : 064-730-1200</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[36] value = 0> <b>연번</b> 36<input  id=input_MP_ID[36] value = "TT002_0036" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[36] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(36) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.286452866,126.444692272), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm36.png', imageSize, imageOption),title1:"WE호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("37.CASALOMAHOTEL",33.246829385,126.557857025,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(37) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(37) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>CASALOMA HOTEL</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 태평로 347</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.246829385,126.557857025</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 108, 전화번호 : 064-733-2121</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[37] value = 0> <b>연번</b> 37<input  id=input_MP_ID[37] value = "TT002_0037" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[37] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(37) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.246829385,126.557857025), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm37.png', imageSize, imageOption),title1:"CASALOMA HOTEL",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("38.헤이서귀포",33.246552290,126.559993578,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(38) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(38) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>헤이서귀포</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 태평로 363</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.246552290,126.559993578</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 134, 전화번호 : 064-763-0024</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[38] value = 0> <b>연번</b> 38<input  id=input_MP_ID[38] value = "TT002_0038" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[38] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(38) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.246552290,126.559993578), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm38.png', imageSize, imageOption),title1:"헤이서귀포",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("39.주식회사호텔크리스탈",33.247300194,126.558111793,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(39) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(39) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>주식회사 호텔크리스탈</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중정로 16</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.247300194,126.558111793</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 72, 전화번호 : 064-732-8311</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[39] value = 0> <b>연번</b> 39<input  id=input_MP_ID[39] value = "TT002_0039" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[39] rows=3 cols=24 >완료</textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(39) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.247300194,126.558111793), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/gm39.png', imageSize, imageOption),title1:"주식회사 호텔크리스탈",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("40.호텔굿인서귀포",33.246751744,126.565759053,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(40) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(40) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>호텔굿인 서귀포</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 태평로439번길 14</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.246751744,126.565759053</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 41, 전화번호 : 064-767-9600</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[40] value = 0> <b>연번</b> 40<input  id=input_MP_ID[40] value = "TT002_0040" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[40] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(40) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.246751744,126.565759053), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm40.png', imageSize, imageOption),title1:"호텔굿인 서귀포",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("41.호텔테디밸리",33.288943694,126.351555413,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(41) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(41) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>호텔 테디밸리</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 안덕면 한창로 365</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.288943694,126.351555413</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 72, 전화번호 : 064-793-1000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[41] value = 0> <b>연번</b> 41<input  id=input_MP_ID[41] value = "TT002_0041" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[41] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(41) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.288943694,126.351555413), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm41.png', imageSize, imageOption),title1:"호텔 테디밸리",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("42.부영CC관광호텔",33.359176073,126.712453825,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(42) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(42) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>부영CC관광호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 남원읍 남조로 960</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.359176073,126.712453825</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 74, 전화번호 : 064-766-5500</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[42] value = 0> <b>연번</b> 42<input  id=input_MP_ID[42] value = "TT002_0042" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[42] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(42) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.359176073,126.712453825), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm42.png', imageSize, imageOption),title1:"부영CC관광호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("43.파인힐호텔",33.241349030,126.564315758,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(43) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(43) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>파인힐호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 부두로 44</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.241349030,126.564315758</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 55, 전화번호 : 064-762-5988</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[43] value = 0> <b>연번</b> 43<input  id=input_MP_ID[43] value = "TT002_0043" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[43] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(43) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.241349030,126.564315758), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm43.png', imageSize, imageOption),title1:"파인힐호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("44.호텔랑주",33.253932593,126.507950475,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(44) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(44) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>호텔랑주</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 김정문화로27번길 23-3</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.253932593,126.507950475</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 31, 전화번호 : 064-739-0012</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[44] value = 0> <b>연번</b> 44<input  id=input_MP_ID[44] value = "TT002_0044" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[44] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(44) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.253932593,126.507950475), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm44.png', imageSize, imageOption),title1:"호텔랑주",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("45.호텔빠레브주식회사",33.252371004,126.506663025,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(45) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(45) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>호텔빠레브 주식회사</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 김정문화로 15</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.252371004,126.506663025</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 204, 전화번호 : 064-735-8899</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[45] value = 0> <b>연번</b> 45<input  id=input_MP_ID[45] value = "TT002_0045" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[45] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(45) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.252371004,126.506663025), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm45.png', imageSize, imageOption),title1:"호텔빠레브 주식회사",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("46.호텔스카브로",33.234110658,126.369971373,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(46) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(46) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>호텔 스카브로</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 예래해안로 15</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.234110658,126.369971373</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 41, 전화번호 : 064-738-1551</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[46] value = 0> <b>연번</b> 46<input  id=input_MP_ID[46] value = "TT002_0046" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[46] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(46) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.234110658,126.369971373), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm46.png', imageSize, imageOption),title1:"호텔 스카브로",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("47.아리아호텔",33.255836386,126.415482565,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(47) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(47) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>아리아호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중문관광로 23-1</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.255836386,126.415482565</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 51, 전화번호 : 064-738-8981</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[47] value = 0> <b>연번</b> 47<input  id=input_MP_ID[47] value = "TT002_0047" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[47] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(47) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.255836386,126.415482565), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm47.png', imageSize, imageOption),title1:"아리아호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("48.글래드호텔앤리조트㈜제주항공우주호텔",33.302413401,126.294452731,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(48) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(48) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>글래드호텔앤리조트㈜제주항공우주호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 안덕면 녹차분재로 216</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.302413401,126.294452731</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 110, 전화번호 : 064-798-5500</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[48] value = 0> <b>연번</b> 48<input  id=input_MP_ID[48] value = "TT002_0048" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[48] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(48) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.302413401,126.294452731), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm48.png', imageSize, imageOption),title1:"글래드호텔앤리조트㈜제주항공우주호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("49.그랜드조선제주(REDD21호제주중문호텔)",33.253497256,126.409647809,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(49) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(49) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>그랜드조선 제주(REDD21호 제주중문호텔)</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중문관광로72번길 60</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.253497256,126.409647809</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 198, 전화번호 : 064-735-8900</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[49] value = 0> <b>연번</b> 49<input  id=input_MP_ID[49] value = "TT002_0049" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[49] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(49) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.253497256,126.409647809), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm49.png', imageSize, imageOption),title1:"그랜드조선 제주(REDD21호 제주중문호텔)",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("50.호텔캘리포니아",33.252872056,126.508345244,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(50) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(50) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>호텔 캘리포니아</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 김정문화로27번길 14-4</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.252872056,126.508345244</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 64, 전화번호 : 064-738-9902</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[50] value = 0> <b>연번</b> 50<input  id=input_MP_ID[50] value = "TT002_0050" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[50] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(50) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.252872056,126.508345244), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm50.png', imageSize, imageOption),title1:"호텔 캘리포니아",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("51.풍경호텔",33.244842026,126.553440964,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(51) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(51) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>풍경호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 남성중로 147</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.244842026,126.553440964</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 48, 전화번호 : 064-733-3355</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[51] value = 0> <b>연번</b> 51<input  id=input_MP_ID[51] value = "TT002_0051" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[51] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(51) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.244842026,126.553440964), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm51.png', imageSize, imageOption),title1:"풍경호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("52.호텔화인",33.240438223,126.565022854,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(52) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(52) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>호텔화인</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 칠십리로 87</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.240438223,126.565022854</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 96, 전화번호 : 064-801-8888</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[52] value = 0> <b>연번</b> 52<input  id=input_MP_ID[52] value = "TT002_0052" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[52] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(52) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.240438223,126.565022854), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm52.png', imageSize, imageOption),title1:"호텔화인",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("53.베니키아중문호텔",33.251904839,126.422375579,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(53) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(53) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>베니키아 중문호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 천제연로 166</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.251904839,126.422375579</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 45, 전화번호 : 064-802-8888</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[53] value = 0> <b>연번</b> 53<input  id=input_MP_ID[53] value = "TT002_0053" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[53] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(53) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.251904839,126.422375579), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm53.png', imageSize, imageOption),title1:"베니키아 중문호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("54.제주부영호텔&리조트",33.242544875,126.423247010,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(54) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(54) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>제주 부영호텔 & 리조트</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중문관광로 222</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.242544875,126.423247010</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 262, 전화번호 : 064-731-5500</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[54] value = 0> <b>연번</b> 54<input  id=input_MP_ID[54] value = "TT002_0054" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[54] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(54) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.242544875,126.423247010), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm54.png', imageSize, imageOption),title1:"제주 부영호텔 & 리조트",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("55.파크선샤인제주관광호텔",33.243405146,126.553259246,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(55) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(55) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>파크선샤인제주관광호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 남성중로 135</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.243405146,126.553259246</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 105, 전화번호 : 064-766-1000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[55] value = 0> <b>연번</b> 55<input  id=input_MP_ID[55] value = "TT002_0055" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[55] rows=3 cols=24 >d</textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(55) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.243405146,126.553259246), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/gm55.png', imageSize, imageOption),title1:"파크선샤인제주관광호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("56.비케이호텔인제주",33.241058554,126.564262384,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(56) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(56) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>비케이호텔인제주</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 칠십리로91번길 12</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.241058554,126.564262384</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 55, 전화번호 : 064-763-0779</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[56] value = 0> <b>연번</b> 56<input  id=input_MP_ID[56] value = "TT002_0056" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[56] rows=3 cols=24 >완료</textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(56) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.241058554,126.564262384), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/gm56.png', imageSize, imageOption),title1:"비케이호텔인제주",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("57.블루마운틴관광호텔",33.463687735,126.934329458,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(57) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(57) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>블루마운틴관광호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 일출로 297</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.463687735,126.934329458</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 38, 전화번호 : 064-731-8888</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[57] value = 0> <b>연번</b> 57<input  id=input_MP_ID[57] value = "TT002_0057" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[57] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(57) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.463687735,126.934329458), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm57.png', imageSize, imageOption),title1:"블루마운틴관광호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("58.오션블루호텔",33.238865890,126.430448796,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(58) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(58) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>오션블루호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 이어도로 67</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.238865890,126.430448796</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 30, 전화번호 : 064-722-9991</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[58] value = 0> <b>연번</b> 58<input  id=input_MP_ID[58] value = "TT002_0058" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[58] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(58) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.238865890,126.430448796), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm58.png', imageSize, imageOption),title1:"오션블루호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("59.제주리시온관광호텔",33.327178284,126.833614880,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(59) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(59) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>제주리시온관광호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 표선면 표선동서로 263</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.327178284,126.833614880</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 77, 전화번호 : 064-787-8841</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[59] value = 0> <b>연번</b> 59<input  id=input_MP_ID[59] value = "TT002_0059" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[59] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(59) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.327178284,126.833614880), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm59.png', imageSize, imageOption),title1:"제주리시온관광호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("60.유어스호텔",33.249806370,126.423835007,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(60) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(60) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>유어스호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 천제연로178번길 21</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.249806370,126.423835007</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 83, 전화번호 : 064-733-7500</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[60] value = 0> <b>연번</b> 60<input  id=input_MP_ID[60] value = "TT002_0060" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[60] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(60) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.249806370,126.423835007), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm60.png', imageSize, imageOption),title1:"유어스호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("61.그랜드메르호텔제주",33.239683251,126.386092044,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(61) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(61) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>그랜드메르호텔 제주</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 논짓물로 45</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.239683251,126.386092044</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 94, 전화번호 : 064-801-7000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[61] value = 0> <b>연번</b> 61<input  id=input_MP_ID[61] value = "TT002_0061" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[61] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(61) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.239683251,126.386092044), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm61.png', imageSize, imageOption),title1:"그랜드메르호텔 제주",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("62.제주스테이",33.438066189,126.915719123,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(62) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(62) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>제주스테이</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 신고로 11</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.438066189,126.915719123</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 80, 전화번호 : 064-783-8877</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[62] value = 0> <b>연번</b> 62<input  id=input_MP_ID[62] value = "TT002_0062" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[62] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(62) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.438066189,126.915719123), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm62.png', imageSize, imageOption),title1:"제주스테이",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("63.히든클리프호텔&네이쳐",33.254728894,126.402594933,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(63) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(63) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>히든클리프호텔&네이쳐</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 예래해안로 542</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.254728894,126.402594933</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 250, 전화번호 : 064-752-7777</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[63] value = 0> <b>연번</b> 63<input  id=input_MP_ID[63] value = "TT002_0063" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[63] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(63) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.254728894,126.402594933), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm63.png', imageSize, imageOption),title1:"히든클리프호텔&네이쳐",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("64.성산썬라이즈호텔",33.462315483,126.931049681,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(64) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(64) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>성산썬라이즈호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 성산등용로17번길 35</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.462315483,126.931049681</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 47, 전화번호 : 064-782-6650</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[64] value = 0> <b>연번</b> 64<input  id=input_MP_ID[64] value = "TT002_0064" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[64] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(64) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.462315483,126.931049681), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm64.png', imageSize, imageOption),title1:"성산썬라이즈호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("65.호텔더본제주",33.259080878,126.406929464,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(65) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(65) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>호텔더본제주</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 색달로 18</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.259080878,126.406929464</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 139, 전화번호 : 064-766-8988</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[65] value = 0> <b>연번</b> 65<input  id=input_MP_ID[65] value = "TT002_0065" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[65] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(65) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.259080878,126.406929464), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm65.png', imageSize, imageOption),title1:"호텔더본제주",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("66.playce(플레이스)",33.450456987,126.919068666,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(66) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(66) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>playce(플레이스)</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 동류암로 20</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.450456987,126.919068666</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 235, 전화번호 : 064-766-3050</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[66] value = 0> <b>연번</b> 66<input  id=input_MP_ID[66] value = "TT002_0066" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[66] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(66) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.450456987,126.919068666), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm66.png', imageSize, imageOption),title1:"playce(플레이스)",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("67.제주티라호텔",33.442686482,126.918442563,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(67) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(67) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>제주 티라 호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 성산읍 섭지코지로25번길 41</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.442686482,126.918442563</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 30, 전화번호 : 064-786-5353</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[67] value = 0> <b>연번</b> 67<input  id=input_MP_ID[67] value = "TT002_0067" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[67] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(67) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.442686482,126.918442563), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm67.png', imageSize, imageOption),title1:"제주 티라 호텔",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("68.제주신화월드호텔앤리조트",33.304936009,126.316605461,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(68) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(68) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>제주신화월드 호텔 앤 리조트</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 안덕면 신화역사로304번길 38</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.304936009,126.316605461</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 1720, 전화번호 : 064-908-6000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[68] value = 0> <b>연번</b> 68<input  id=input_MP_ID[68] value = "TT002_0068" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[68] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(68) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.304936009,126.316605461), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm68.png', imageSize, imageOption),title1:"제주신화월드 호텔 앤 리조트",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("69.호텔아루미",33.258573182,126.413963394,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(69) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(69) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>호텔 아루미</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 색달중앙로 38</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.258573182,126.413963394</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 78, 전화번호 : 064-738-9780</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[69] value = 0> <b>연번</b> 69<input  id=input_MP_ID[69] value = "TT002_0069" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[69] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(69) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.258573182,126.413963394), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm69.png', imageSize, imageOption),title1:"호텔 아루미",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("70.골드윈호텔&스위트",33.244243124,126.522514402,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(70) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(70) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>골드윈호텔&스위트</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 이어도로 1032</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.244243124,126.522514402</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 51, 전화번호 : 064-801-5000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[70] value = 0> <b>연번</b> 70<input  id=input_MP_ID[70] value = "TT002_0070" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[70] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(70) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.244243124,126.522514402), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm70.png', imageSize, imageOption),title1:"골드윈호텔&스위트",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("71.㈜신세계조선호텔그랜드조선제주힐스윗",33.253497256,126.409647809,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(71) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(71) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>㈜신세계조선호텔 그랜드조선 제주 힐스윗</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중문관광로72번길 60</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.253497256,126.409647809</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 50, 전화번호 : 064-738-6600</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>관광호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[71] value = 0> <b>연번</b> 71<input  id=input_MP_ID[71] value = "TT002_0071" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[71] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(71) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.253497256,126.409647809), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm71.png', imageSize, imageOption),title1:"㈜신세계조선호텔 그랜드조선 제주 힐스윗",kind1:"관광호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("72.HOTEL52",33.219907333,126.247068691,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(72) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(72) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>HOTEL 52</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 대정읍 신영로36번길 35</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.219907333,126.247068691</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 20, 전화번호 : 064-794-1831</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>소형호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[72] value = 0> <b>연번</b> 72<input  id=input_MP_ID[72] value = "TT002_0072" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[72] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(72) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.219907333,126.247068691), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm72.png', imageSize, imageOption),title1:"HOTEL 52",kind1:"소형호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("73.모슬포1호텔",33.217746081,126.250913856,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(73) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(73) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>모슬포1호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 대정읍 최남단해안로30번길 11</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.217746081,126.250913856</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 24, 전화번호 : 064-792-4723</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>소형호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[73] value = 0> <b>연번</b> 73<input  id=input_MP_ID[73] value = "TT002_0073" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[73] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(73) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.217746081,126.250913856), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm73.png', imageSize, imageOption),title1:"모슬포1호텔",kind1:"소형호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("74.모슬포2호텔",33.217750238,126.250720746,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(74) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(74) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>모슬포2호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 대정읍 최남단해안로30번길 13</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.217750238,126.250720746</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 24, 전화번호 : 064-792-4723</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>소형호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[74] value = 0> <b>연번</b> 74<input  id=input_MP_ID[74] value = "TT002_0074" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[74] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(74) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.217750238,126.250720746), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm74.png', imageSize, imageOption),title1:"모슬포2호텔",kind1:"소형호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("75.모슬포3호텔",33.217743090,126.250530828,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(75) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(75) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>모슬포3호텔</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 대정읍 최남단해안로30번길 15</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.217743090,126.250530828</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 24, 전화번호 : 064-792-4723</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>소형호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[75] value = 0> <b>연번</b> 75<input  id=input_MP_ID[75] value = "TT002_0075" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[75] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(75) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.217743090,126.250530828), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm75.png', imageSize, imageOption),title1:"모슬포3호텔",kind1:"소형호텔업"},{         content: '<div class="showlistbox" style="line-height:40px;padding:3px;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;);">'
+            +'<table class = "navitable" >'
+            +'<tr> <td><img src=op/m/navi.png  onclick=navi2("76.씨에스개발㈜씨에스호텔앤리조트",33.242915873,126.420293543,0) style=cursor:pointer;></td><td><img src=op/m/done.png  onclick=save_one_PC(76) style=cursor:pointer;></td><td><!--<img src=op/m/camera.png  onclick=save_PC(76) style=cursor:pointer;>--></td>  </tr>'
+            +'</table>'
+            +'<table class = "maptable"  >'
+            +'<tr> <th style="width:40px">이름</th> <td>씨에스개발㈜ 씨에스호텔앤리조트</td>  </tr>	<th valign=top>주소</th> 	<td>제주특별자치도 서귀포시 중문관광로 198</td> </tr>    '
+            +'<tr> <th>좌표</th> 	<td>33.242915873,126.420293543</td>  </tr> <th valign=top>비고</th> 	<td>객실수 : 26, 전화번호 : 064-735-3000</td>  </tr>'
+            +'<tr> <th>분류</th> 	<td>한국전통호텔업</td>  </tr>  <tr> 	<tr> <th>링크</th> 	<td><a href= target = _new></a></td>  </tr>  <tr> <th>순번</th><td><input  maxlength=4 size=4 style="width:40" class="input-od" id=input_MP_OD[76] value = 0> <b>연번</b> 76<input  id=input_MP_ID[76] value = "TT002_0076" hidden></td> </tr>    '
+            +'</table>'
+            +'<table class = "navitable"  >'
+            +'<tr> <td><textarea id=input_MP_PC[76] rows=3 cols=24 ></textarea></td>  	<td  style="width:70px"><button style="width:40" onclick=save_PC(76) class="success"><br>저장<br><br></button></td> </tr>      '
+            +'</table>'
+        +'</div>', 
+                    latlng: new daum.maps.LatLng(33.242915873,126.420293543), markerImage: new daum.maps.MarkerImage('https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm76.png', imageSize, imageOption),title1:"씨에스개발㈜ 씨에스호텔앤리조트",kind1:"한국전통호텔업"},];
+
+var is_mobile = false;
+var UserAgent = navigator.userAgent; 
+if (UserAgent.match(/iPhone|iPod|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i) != null || UserAgent.match(/LG|SAMSUNG|Samsung/) != null) 
+{ 
+	//  go(); // 모바일 
+	is_mobile = true
+} 
+else 
+{ 
+	is_mobile = false;
+} 
+
+
+var mapTypes = {
+    useDistrict : kakao.maps.MapTypeId.USE_DISTRICT,    
+};
+
+
+var overlayOn = false, // 지도 위에 로드뷰 오버레이가 추가된 상태를 가지고 있을 변수
+    container = document.getElementById('container'), // 지도와 로드뷰를 감싸고 있는 div 입니다
+    mapWrapper = document.getElementById('mapWrapper'), // 지도를 감싸고 있는 div 입니다
+    mapContainer = document.getElementById('map'), // 지도를 표시할 div 입니다 
+    rvContainer = document.getElementById('roadview'); //로드뷰를 표시할 div 입니다
+
+var mapCenter = new kakao.maps.LatLng(33.260779389, 126.592682184), // 지도의 중심좌표
+    mapOption = {
+        center: mapCenter, // 지도의 중심좌표
+        level: 7 // 지도의 확대 레벨
+    };
+
+// 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
+var map = new kakao.maps.Map(mapContainer, mapOption);
+
+// 로드뷰 객체를 생성합니다 
+var rv = new kakao.maps.Roadview(rvContainer); 
+
+// 좌표로부터 로드뷰 파노라마 ID를 가져올 로드뷰 클라이언트 객체를 생성합니다 
+var rvClient = new kakao.maps.RoadviewClient(); 
+
+// 로드뷰에 좌표가 바뀌었을 때 발생하는 이벤트를 등록합니다 
+kakao.maps.event.addListener(rv, 'position_changed', function() {
+
+    // 현재 로드뷰의 위치 좌표를 얻어옵니다 
+    var rvPosition = rv.getPosition();
+
+    // 지도의 중심을 현재 로드뷰의 위치로 설정합니다
+    map.setCenter(rvPosition);
+
+    // 지도 위에 로드뷰 도로 오버레이가 추가된 상태이면
+    if(overlayOn) {
+        // 마커의 위치를 현재 로드뷰의 위치로 설정합니다
+        marker.setPosition(rvPosition);
+    }
+});
+
+// 마커 이미지를 생성합니다
+var markImage = new kakao.maps.MarkerImage(
+    'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/roadview_wk.png',
+    new kakao.maps.Size(40,42), {
+    //마커의 좌표에 해당하는 이미지의 위치를 설정합니다.
+    //이미지의 모양에 따라 값은 다를 수 있으나, 보통 width/2, height를 주면 좌표에 이미지의 하단 중앙이 올라가게 됩니다.
+    offset: new kakao.maps.Point(14,42)
+});
+
+// 드래그가 가능한 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+    image : markImage,
+    position: mapCenter,
+    draggable: true
+});
+
+
+
+// 마커에 dragend 이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'dragend', function(mouseEvent) {
+
+// 현재 마커가 놓인 자리의 좌표입니다 
+var position = marker.getPosition();
+
+// 마커가 놓인 위치를 기준으로 로드뷰를 설정합니다
+toggleRoadview(position);
+});
+
+//지도에 클릭 이벤트를 등록합니다
+kakao.maps.event.addListener(map, 'click', function(mouseEvent){
+// 지도 위에 로드뷰 도로 오버레이가 추가된 상태가 아니면 클릭이벤트를 무시합니다 
+HideAllInfos();  
+if(!overlayOn) {
+    return;
+}
+// 클릭한 위치의 좌표입니다 
+var position = mouseEvent.latLng;
+// 마커를 클릭한 위치로 옮깁니다
+marker.setPosition(position);
+// 클락한 위치를 기준으로 로드뷰를 설정합니다
+toggleRoadview(position);
+
+});
+
+
+
+var Navi_Imgsrc = "";
+
+var UserAgent = navigator.userAgent;
+var UADevice = UserAgent.match(/iPhone|iPod|iPad|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i);
+var UAVendor = UserAgent.match(/LG|SAMSUNG|Samsung/);
+//if (UADevice !== null || UAVendor !== null) {
+	Navi_Imgsrc = "<img src=/map/kakaonavi_btn_medium.png><br>";
+//}
+
+function setCenter1(Lat, Lng, num) {            
+
+if (Lat == null) {return 0};
+// 이동할 위도 경도 위치를 생성합니다 
+
+for (var i = 0; i < markers.length; i++) {
+    markers[i].setZIndex(20);
+    customOverlays[i].setZIndex(10);
+    infowindows[i].setZIndex(30);
+    
+}  
+markers[num].setZIndex(21);
+customOverlays[num].setZIndex(11);    
+infowindows[num].setZIndex(31);
+
+var moveLatLon = new kakao.maps.LatLng(Lat, Lng);
+
+// 지도 중심을 이동 시킵니다
+    map.panTo(moveLatLon);
+var circle = new kakao.maps.Circle({
+    center : new kakao.maps.LatLng(Lat,  Lng),  // 원의 중심좌표 입니다 
+    radius: 100, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 1, // 선의 두께입니다 
+    strokeColor: '#ffa500', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#FF0000', // 채우기 색깔입니다
+    fillOpacity: 0.3  // 채우기 불투명도 입니다   
+    }); 
+
+// 지도에 원을 표시합니다 
+circle.setMap(map);     
+setTimeout(function(){
+circle.setMap(null);    ;
+}, 2000);        
+    
+}
+
+
+
+function makeAllDrag() {
+
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setDraggable(true);
+    }            
+
+    btnAllDrag.className = 'selected_btn';
+    btnLockDrag.className = 'btn';        
+    
+}
+
+function makeLockDrag() {
+
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setDraggable(false);
+    }            
+    btnAllDrag.className = 'btn';
+    btnLockDrag.className = 'selected_btn';        
+
+}
+
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        HideAllInfos();        
+        infowindow.open(map, marker);
+    };
+}
+
+function HideAllInfos() {
+    for (var i = 0; i < infowindows.length; i++) {
+        infowindows[i].close();
+    }    
+}
+
+
+
+function HideAllTitle() {
+    for (var i = 0; i < customOverlays.length; i++) {
+        customOverlays[i].setVisible(false);
+    }   
+    btnTTShow.className = 'btn';
+    btnTTHide.className = 'selected_btn';            
+}
+
+
+function ShowAllTitle() {
+    for (var i = 0; i < customOverlays.length; i++) {
+        customOverlays[i].setVisible(true);
+    }    
+    btnTTShow.className = 'selected_btn';
+    btnTTHide.className = 'btn';            
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+}
+
+for (var i = 0; i < positions.length; i++) {
+    // 마커를 생성합니다
+    var marker = new daum.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커의 위치
+        image:positions[i].markerImage,
+        title: positions[i].kind1
+    });
+
+    
+
+    // 마커에 표시할 인포윈도우를 생성합니다 
+    var infowindow = new daum.maps.InfoWindow({
+        removable : true,    content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+
+   var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: positions[i].latlng, content: '<div class ="label"><span class="left"></span><span class="center">'.concat(positions[i].title1, '</span><span class="right"></span></div>'), xAnchor: 0.5, yAnchor: 0.56, zIndex:-1});
+
+   customOverlay.setMap(map);				 
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+//    daum.maps.event.addListener(marker, 'rightclick', makeDrag(map, marker));    
+
+    //daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+
+    markers.push(marker);   
+    customOverlays.push(customOverlay);   
+    infowindows.push(infowindow);       
+}
+
+// 마커 이미지를 생성합니다
+var markImage = new daum.maps.MarkerImage(
+    'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/roadview_wk.png',
+    new daum.maps.Size(40,42), {
+    //마커의 좌표에 해당하는 이미지의 위치를 설정합니다.
+    //이미지의 모양에 따라 값은 다를 수 있으나, 보통 width/2, height를 주면 좌표에 이미지의 하단 중앙이 올라가게 됩니다.
+    offset: new daum.maps.Point(14,42)
+});
+
+// 드래그가 가능한 마커를 생성합니다
+var marker = new daum.maps.Marker({
+    image : markImage,
+    position: mapCenter,
+    draggable: true
+});
+
+
+// 추가함수
+
+function regExp(str, type){  
+    var reg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
+    
+    
+    if (type == 1) { reg = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi}
+    if (type == 2) { reg = /[\{\}\[\]\/?,;:|*~`!^\+<>@\#$%&\\\=\'\"]/gi}  // . _ - ( ) 포함
+    if (type == 3) { reg = /[\{\}\[\]\/?;:|*~`!^\+<>@\#$%&\\\=\'\"]/gi}  // , . _ - ( ) 포함
+    
+    //특수문자 검증
+    if(reg.test(str)){
+        //특수문자 제거후 리턴
+        return str.replace(reg, "");    
+    } else {
+        //특수문자가 없으므로 본래 문자 리턴
+        return str;
+    }  
+}
+
+
+
+
+function setMarkers(map,kind) {
+    for (var i = 0; i < markers.length; i++) {
+        if (kind == markers[i].Fb){
+        markers[i].setMap(map);
+        customOverlays[i].setMap(map);
+        } 
+
+        //console.log(markers[i]); 
+        //console.log(markers[i].Fb);         
+    }            
+}
+
+function showMarkers() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+        customOverlays[i].setMap(map);             }
+
+
+}
+
+// "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
+function hideMarkers() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+        customOverlays[i].setMap(null);             }
+        
+}
+
+function viewKind(mKind) { 
+
+    setMarkers(map,mKind);    
+}
+
+
+function hideOderlist() {
+    for (var i = 0; i < o_list.length; i++) {
+        markers[i].setMap(null);
+        customOverlays[i].setMap(null);             }
+}
+
+function gotomode(mode) {
+    if (mode == 1)  location.href = "/mm/pm.php?MTSH=930cbf84eb5f1a6ea7a56cd93b8c71f4";
+    if (mode == 2)  location.href = "/mm/p.php?MTSH=930cbf84eb5f1a6ea7a56cd93b8c71f4";
+    if (mode == 3)  location.href = "/mm/op/detail.php?MTID=TT002";
+    if (mode == 4)  location.href = "/mm/op/detail.php?MTID=TT002";                        
+}    
+</script>
+
+
+
+
+<div id="menu_wrap_m" class="bg_white" style="border:1px solid #919191;border-radius:10px;">
+
+<div id="input-form">
+<img src="/mm/op/m/search.png" style="margin-top: 1px; margin-right: 3px;vertical-align: bottom"><input type="text" id="keyword"  style="width:105px" /><span> <span class="count"></span>            
+</div>
+<div style='cursor: pointer;line-height:2em;'><button onclick="showMarkers()">전체</button> <button class="success" onclick="hideMarkers()">숨김</button> <button class="warning" onclick="viewKind('가족호텔업')">가족호텔업</button><button class="warning" onclick="viewKind('관광호텔업')">관광호텔업</button><button class="warning" onclick="viewKind('소형호텔업')">소형호텔업</button><button class="warning" onclick="viewKind('한국전통호텔업')">한국전통호텔업</button></div><div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.50792776387453, 126.56494914074455,0)' ondblclick=' HideAllInfos();infowindows[0].open(map, markers[0])' id='s_list1'>1.그랑빌 가족호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.242357933514356, 126.38546161897295,1)' ondblclick=' HideAllInfos();infowindows[1].open(map, markers[1])' id='s_list2'>2.중문빌리지 가족호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.211734158, 126.291484187,2)' ondblclick=' HideAllInfos();infowindows[2].open(map, markers[2])' id='s_list3'>3.송악리조트</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.245764301, 126.451328296,3)' ondblclick=' HideAllInfos();infowindows[3].open(map, markers[3])' id='s_list4'><del>4.담앤루</del></div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.243711766, 126.446634405,4)' ondblclick=' HideAllInfos();infowindows[4].open(map, markers[4])' id='s_list5'>5.뷰티플리조트</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.262572886, 126.415633185,5)' ondblclick=' HideAllInfos();infowindows[5].open(map, markers[5])' id='s_list6'>6.중문리조트</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.262921340, 126.383758287,6)' ondblclick=' HideAllInfos();infowindows[6].open(map, markers[6])' id='s_list7'>7.아라온리조트</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.264079932, 126.451087535,7)' ondblclick=' HideAllInfos();infowindows[7].open(map, markers[7])' id='s_list8'>8.중문통나무가족호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.242554738, 126.328096998,8)' ondblclick=' HideAllInfos();infowindows[8].open(map, markers[8])' id='s_list9'>9.와이리조트 제주</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.459019831, 126.910033869,9)' ondblclick=' HideAllInfos();infowindows[9].open(map, markers[9])' id='s_list10'>10.코델리아리조트</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.475208008, 126.909963065,10)' ondblclick=' HideAllInfos();infowindows[10].open(map, markers[10])' id='s_list11'>11.아름다운리조트</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.429733389, 126.862065231,11)' ondblclick=' HideAllInfos();infowindows[11].open(map, markers[11])' id='s_list12'>12.엔파제주호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.474084326, 126.911039077,12)' ondblclick=' HideAllInfos();infowindows[12].open(map, markers[12])' id='s_list13'>13.봄그리고가을리조트</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.247065994, 126.558336382,13)' ondblclick=' HideAllInfos();infowindows[13].open(map, markers[13])' id='s_list14'>14.H.Y 초이호스텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.235011272, 126.503012808,14)' ondblclick=' HideAllInfos();infowindows[14].open(map, markers[14])' id='s_list15'>15.파미유리조트 가족호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.233061146, 126.510406450,15)' ondblclick=' HideAllInfos();infowindows[15].open(map, markers[15])' id='s_list16'>16.호텔 섬오름</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.254679926, 126.439028944,16)' ondblclick=' HideAllInfos();infowindows[16].open(map, markers[16])' id='s_list17'>17.㈜일레인</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.474636332, 126.910506113,17)' ondblclick=' HideAllInfos();infowindows[17].open(map, markers[17])' id='s_list18'>18.봄그리고가을 가족호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.265933558, 126.484696289,18)' ondblclick=' HideAllInfos();infowindows[18].open(map, markers[18])' id='s_list19'>19.토스카나호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.448371785, 126.911977389,19)' ondblclick=' HideAllInfos();infowindows[19].open(map, markers[19])' id='s_list20'>20.성산아쿠아비치호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.466521617, 126.931059094,20)' ondblclick=' HideAllInfos();infowindows[20].open(map, markers[20])' id='s_list21'>21.호텔아로하</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.473414835, 126.910448168,21)' ondblclick=' HideAllInfos();infowindows[21].open(map, markers[21])' id='s_list22'>22.더포그레이스호텔앤리조트</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.466600267, 126.930850484,22)' ondblclick=' HideAllInfos();infowindows[22].open(map, markers[22])' id='s_list23'>23.브리즈베이호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.264739891, 126.416450955,23)' ondblclick=' HideAllInfos();infowindows[23].open(map, markers[23])' id='s_list24'>24.제이뷰호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.250371726, 126.559532927,24)' ondblclick=' HideAllInfos();infowindows[24].open(map, markers[24])' id='s_list25'>25.호텔 휴식 서귀포</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.454927840, 126.910274976,25)' ondblclick=' HideAllInfos();infowindows[25].open(map, markers[25])' id='s_list26'>26.코델리아S호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.436654141, 126.918304290,26)' ondblclick=' HideAllInfos();infowindows[26].open(map, markers[26])' id='s_list27'>27.썬라이즈호텔 섭지코지점</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.260779389, 126.592682184,27)' ondblclick=' HideAllInfos();infowindows[27].open(map, markers[27])' id='s_list28'><del>28.제이앤비 가족호텔</del></div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.236639226, 126.497902355,28)' ondblclick=' HideAllInfos();infowindows[28].open(map, markers[28])' id='s_list29'>29.글레즈하임호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.246803479, 126.407178451,29)' ondblclick=' HideAllInfos();infowindows[29].open(map, markers[29])' id='s_list30'>30.(주)호텔신라 제주신라</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.247745784, 126.411305401,30)' ondblclick=' HideAllInfos();infowindows[30].open(map, markers[30])' id='s_list31'>31.㈜호텔롯데 롯데호텔 제주</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.244616077, 126.405972080,31)' ondblclick=' HideAllInfos();infowindows[31].open(map, markers[31])' id='s_list32'>32.더 쇼어호텔 제주</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.248980894, 126.408524524,32)' ondblclick=' HideAllInfos();infowindows[32].open(map, markers[32])' id='s_list33'>33.㈜교원 스위트호텔 제주</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.244325252, 126.580794352,33)' ondblclick=' HideAllInfos();infowindows[33].open(map, markers[33])' id='s_list34'><del>34.서귀포KAL호텔</del></div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.322955640, 126.844666295,34)' ondblclick=' HideAllInfos();infowindows[34].open(map, markers[34])' id='s_list35'>35.해비치호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.286452866, 126.444692272,35)' ondblclick=' HideAllInfos();infowindows[35].open(map, markers[35])' id='s_list36'>36.WE호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.246829385, 126.557857025,36)' ondblclick=' HideAllInfos();infowindows[36].open(map, markers[36])' id='s_list37'>37.CASALOMA HOTEL</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.246552290, 126.559993578,37)' ondblclick=' HideAllInfos();infowindows[37].open(map, markers[37])' id='s_list38'>38.헤이서귀포</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.247300194, 126.558111793,38)' ondblclick=' HideAllInfos();infowindows[38].open(map, markers[38])' id='s_list39'><del>39.주식회사 호텔크리스탈</del></div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.246751744, 126.565759053,39)' ondblclick=' HideAllInfos();infowindows[39].open(map, markers[39])' id='s_list40'>40.호텔굿인 서귀포</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.288943694, 126.351555413,40)' ondblclick=' HideAllInfos();infowindows[40].open(map, markers[40])' id='s_list41'>41.호텔 테디밸리</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.359176073, 126.712453825,41)' ondblclick=' HideAllInfos();infowindows[41].open(map, markers[41])' id='s_list42'>42.부영CC관광호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.241349030, 126.564315758,42)' ondblclick=' HideAllInfos();infowindows[42].open(map, markers[42])' id='s_list43'>43.파인힐호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.253932593, 126.507950475,43)' ondblclick=' HideAllInfos();infowindows[43].open(map, markers[43])' id='s_list44'>44.호텔랑주</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.252371004, 126.506663025,44)' ondblclick=' HideAllInfos();infowindows[44].open(map, markers[44])' id='s_list45'>45.호텔빠레브 주식회사</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.234110658, 126.369971373,45)' ondblclick=' HideAllInfos();infowindows[45].open(map, markers[45])' id='s_list46'>46.호텔 스카브로</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.255836386, 126.415482565,46)' ondblclick=' HideAllInfos();infowindows[46].open(map, markers[46])' id='s_list47'>47.아리아호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.302413401, 126.294452731,47)' ondblclick=' HideAllInfos();infowindows[47].open(map, markers[47])' id='s_list48'>48.글래드호텔앤리조트㈜제주항공우주호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.253497256, 126.409647809,48)' ondblclick=' HideAllInfos();infowindows[48].open(map, markers[48])' id='s_list49'>49.그랜드조선 제주(REDD21호 제주중문호텔)</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.252872056, 126.508345244,49)' ondblclick=' HideAllInfos();infowindows[49].open(map, markers[49])' id='s_list50'>50.호텔 캘리포니아</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.244842026, 126.553440964,50)' ondblclick=' HideAllInfos();infowindows[50].open(map, markers[50])' id='s_list51'>51.풍경호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.240438223, 126.565022854,51)' ondblclick=' HideAllInfos();infowindows[51].open(map, markers[51])' id='s_list52'>52.호텔화인</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.251904839, 126.422375579,52)' ondblclick=' HideAllInfos();infowindows[52].open(map, markers[52])' id='s_list53'>53.베니키아 중문호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.242544875, 126.423247010,53)' ondblclick=' HideAllInfos();infowindows[53].open(map, markers[53])' id='s_list54'>54.제주 부영호텔 & 리조트</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.243405146, 126.553259246,54)' ondblclick=' HideAllInfos();infowindows[54].open(map, markers[54])' id='s_list55'><del>55.파크선샤인제주관광호텔</del></div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.241058554, 126.564262384,55)' ondblclick=' HideAllInfos();infowindows[55].open(map, markers[55])' id='s_list56'><del>56.비케이호텔인제주</del></div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.463687735, 126.934329458,56)' ondblclick=' HideAllInfos();infowindows[56].open(map, markers[56])' id='s_list57'>57.블루마운틴관광호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.238865890, 126.430448796,57)' ondblclick=' HideAllInfos();infowindows[57].open(map, markers[57])' id='s_list58'>58.오션블루호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.327178284, 126.833614880,58)' ondblclick=' HideAllInfos();infowindows[58].open(map, markers[58])' id='s_list59'>59.제주리시온관광호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.249806370, 126.423835007,59)' ondblclick=' HideAllInfos();infowindows[59].open(map, markers[59])' id='s_list60'>60.유어스호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.239683251, 126.386092044,60)' ondblclick=' HideAllInfos();infowindows[60].open(map, markers[60])' id='s_list61'>61.그랜드메르호텔 제주</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.438066189, 126.915719123,61)' ondblclick=' HideAllInfos();infowindows[61].open(map, markers[61])' id='s_list62'>62.제주스테이</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.254728894, 126.402594933,62)' ondblclick=' HideAllInfos();infowindows[62].open(map, markers[62])' id='s_list63'>63.히든클리프호텔&네이쳐</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.462315483, 126.931049681,63)' ondblclick=' HideAllInfos();infowindows[63].open(map, markers[63])' id='s_list64'>64.성산썬라이즈호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.259080878, 126.406929464,64)' ondblclick=' HideAllInfos();infowindows[64].open(map, markers[64])' id='s_list65'>65.호텔더본제주</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.450456987, 126.919068666,65)' ondblclick=' HideAllInfos();infowindows[65].open(map, markers[65])' id='s_list66'>66.playce(플레이스)</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.442686482, 126.918442563,66)' ondblclick=' HideAllInfos();infowindows[66].open(map, markers[66])' id='s_list67'>67.제주 티라 호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.304936009, 126.316605461,67)' ondblclick=' HideAllInfos();infowindows[67].open(map, markers[67])' id='s_list68'>68.제주신화월드 호텔 앤 리조트</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.258573182, 126.413963394,68)' ondblclick=' HideAllInfos();infowindows[68].open(map, markers[68])' id='s_list69'>69.호텔 아루미</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.244243124, 126.522514402,69)' ondblclick=' HideAllInfos();infowindows[69].open(map, markers[69])' id='s_list70'>70.골드윈호텔&스위트</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.253497256, 126.409647809,70)' ondblclick=' HideAllInfos();infowindows[70].open(map, markers[70])' id='s_list71'>71.㈜신세계조선호텔 그랜드조선 제주 힐스윗</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.219907333, 126.247068691,71)' ondblclick=' HideAllInfos();infowindows[71].open(map, markers[71])' id='s_list72'>72.HOTEL 52</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.217746081, 126.250913856,72)' ondblclick=' HideAllInfos();infowindows[72].open(map, markers[72])' id='s_list73'>73.모슬포1호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.217750238, 126.250720746,73)' ondblclick=' HideAllInfos();infowindows[73].open(map, markers[73])' id='s_list74'>74.모슬포2호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.217743090, 126.250530828,74)' ondblclick=' HideAllInfos();infowindows[74].open(map, markers[74])' id='s_list75'>75.모슬포3호텔</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter1(33.242915873, 126.420293543,75)' ondblclick=' HideAllInfos();infowindows[75].open(map, markers[75])' id='s_list76'>76.씨에스개발㈜ 씨에스호텔앤리조트</div>
+</div>
+
+</div>
+
+<script>
+
+function save_PC(num)
+{
+
+        mMP_OD = "input_MP_OD["+num+"]";
+        mMP_PC = "input_MP_PC["+num+"]";        
+        mMP_ID = "input_MP_ID["+num+"]";                
+        ms_list = "#s_list"+num;
+
+         $("#btn_sql").html('수정중 '+ "|" +  document.getElementById(mMP_ID).value + "|" + document.getElementById(mMP_OD).value +  "|" + document.getElementById(mMP_PC).value);        
+
+         $msg_data = "MPC" +"|"+document.getElementById(mMP_ID).value+"|"+document.getElementById(mMP_OD).value+"|"+  regExp(document.getElementById(mMP_PC).value, 3);
+
+        $("#btn_sql").html($msg_data);
+        //console.log($msg_data);
+
+
+//        $("img").attr("src").replace("https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm1.png","https://tistory4.daumcdn.net/tistory/1873809/skin/images/gm1.png");
+
+
+        $.ajax({
+        url:'/mm/op/map_crud.php',
+        dataType:'json',
+        type:'POST',
+        data:{'msg':$msg_data},
+        success:function(result){
+            if(result['result']==true){
+                //$("#result").html(result['msg']);                        
+               // location.reload();
+               
+               if (regExp(document.getElementById(mMP_PC).value, 3) != '') {
+                    x = $("img[src$='"+mark_imgsrc+"rm"+num+".png']");
+                    x.attr("src",mark_imgsrc+'gm'+num+'.png');
+                    //$(ms_list).text('dfdsfdsf');                    
+                    $(ms_list).html('<del>' + $(ms_list).text() + '</del>');                                        
+
+                } else {
+                    x = $("img[src$='"+mark_imgsrc+"gm"+num+".png']");
+                    x.attr("src",mark_imgsrc+'rm'+num+'.png');                    
+                    $(ms_list).html( $(ms_list).text().replace('<del>','').replace('</del>',''));                           
+                };
+                HideAllInfos();                        
+
+
+            }
+        }
+        });      
+
+
+
+
+}
+function save_one_PC(num)
+{
+    mMP_PC = "input_MP_PC["+num+"]";        
+    if ((document.getElementById(mMP_PC).value) == '') document.getElementById(mMP_PC).value = "완료";
+    save_PC(num);
+}    
+
+function setShowList1m() {
+    menu_wrap_m.style.visibility='visible';
+    btnTitleList.className = 'selected_btn';
+    btnTitleListHide.className = 'btn';       
+}  
+
+      
+
+function setShowList2m() {
+    menu_wrap_m.style.visibility='hidden';
+    btnTitleList.className = 'btn';
+    btnTitleListHide.className = 'selected_btn';        
+}      
+
+function setRoadviewRoad_m() {
+    var control = document.getElementById('roadviewControl_m');
+    // 버튼이 눌린 상태가 아니면
+    if (control.className.indexOf('active') === -1) {
+        control.className = 'active';
+        // 로드뷰 도로 오버레이가 보이게 합니다
+        toggleOverlay(true);
+    } else {
+        control.className = '';
+        // 로드뷰 도로 오버레이를 제거합니다
+        toggleOverlay(false);
+    }
+}
+
+
+
+$("#keyword").keyup(function() {
+                var k = $(this).val();
+                $(".sel_text").hide();
+                var temp = $(".sel_text:contains('" + k + "')");
+
+                $(temp).show();
+                $('.count').text(temp.length);                
+            })
+
+
+
+
+</script>
+

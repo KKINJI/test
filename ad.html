@@ -1,0 +1,390 @@
+<title>장암</title>
+<style>
+ html, body {width:100%;height:100%;margin:0;padding:0;overflow: hidden} 
+
+.map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
+
+.radius_border{border:1px solid #919191;border-radius:5px;}     
+.custom_typecontrol {position:absolute;bottom:20px;left:5px;overflow:hidden;width:130px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol span {display:block;width:65px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol .selected_btn:hover {color:#fff;}   
+
+
+.custom_typecontrol2 {position:absolute;bottom:20px;left:410px;overflow:hidden;width:140px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol2 span {display:block;width:70px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol2 .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol2 .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol2 .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol2 .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol2 .selected_btn:hover {color:#fff;}   
+
+
+
+.custom_typecontrol3 {position:absolute;bottom:20px;left:160px;overflow:hidden;width:140px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol3 span {display:block;width:70px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol3 .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol3 .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol3 .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol3 .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol3 .selected_btn:hover {color:#fff;}   
+
+
+.custom_typecontrol4 {position:absolute;bottom:20px; right:22px;overflow:hidden;width:160px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol4 span {display:block;width:80px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol4 .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol4 .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol4 .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol4 .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol4 .selected_btn:hover {color:#fff;}   
+
+
+
+.label {margin-bottom: 96px;}
+.label * {display: inline-block;vertical-align: top;}
+.label .left {background: url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png") no-repeat;display: inline-block;height: 24px;overflow: hidden;vertical-align: top;width: 7px;}
+.label .center {background: url(http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png) repeat-x;display: inline-block;height: 24px;font-size: 12px;line-height: 24px;}
+.label .right {background: url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png") -1px 0  no-repeat;display: inline-block;height: 24px;overflow: hidden;width: 6px;}
+
+
+.showlistbox {width:300px;line-height:17px;text-align:center;padding:3px 0;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;)}
+
+
+   
+#menu_wrap {position:absolute;top:13;right:5;bottom:48;width:180px;margin:3px 0 5px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.8);z-index: 1;font-size:12px;border-radius: 0px;}
+.bg_white {background:#fff;}
+#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#menu_wrap .option{text-align: center;}
+    
+    
+#container {overflow:hidden;height:100%;position:relative;}
+#mapWrapper {width:100%;height:100%;z-index:1;}
+#rvWrapper {width:50%;height:100%;top:0;right:0;position:absolute;z-index:0;}
+#container.view_roadview #mapWrapper {width: 50%;}
+#roadviewControl {position:absolute;bottom:15px;left:320px;width:65px;height:25px;padding:2px;z-index: 1;background: #f7f7f7;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;cursor: pointer;}
+#roadviewControl span {background: url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mapworker.png) no-repeat;  padding-left:23px;height:24px;font-size: 12px;display: inline-block;line-height: 2;font-weight: bold;}
+#roadviewControl.active {background: #ccc;box-shadow: 0px 1px #5F616D;border: 1px solid #7F818A;}
+#roadviewControl.active span {background: url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mapworker_on.png) no-repeat;color: #4C4E57;}
+#close {position: absolute;padding: 4px;top: 5px;left: 5px;cursor: pointer;background: #fff;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;}
+#close .img {display: block;background: url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;width: 14px;height: 14px;}    
+
+
+
+
+.info {position:relative;top:5px;left:5px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;font-size:12px;padding:5px;background:#fff;list-style:none;margin:0;} 
+.info:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}    
+.info .label {display:inline-block;width:50px;}
+.number {font-weight:bold;color:#00a0e9;} 
+
+
+</style>
+
+
+<div id="container">
+    <div id="rvWrapper">
+        <div id="roadview" style="width:100%;height:100%;"></div> <!-- 로드뷰를 표시할 div 입니다 -->
+        <div id="close" title="로드뷰닫기" onclick="closeRoadview()"><span class="img"></span></div>
+    </div>
+    <div id="mapWrapper">
+        <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
+        <div id="roadviewControl" onclick="setRoadviewRoad()"><span>로드뷰</span></div>
+    </div>
+
+
+</div>
+
+
+    <div class="custom_typecontrol radius_border">
+        <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')">지도</span>
+        <span id="btnSkyview" class="btn" onclick="setMapType('skyview')">스카이뷰</span>
+    </div>
+<!--    
+<div id="district" style="width:100%;height:10px" >
+     <span style="font-size:12px;position:absolute;bottom:20px;left:150px;z-index:1"><input type="checkbox" id="chkuseDistrict" onclick="setOverlayMapTypeId1()" ><b>지적편집도</b></span>
+</div>
+
+<div id="showlist" style="width:100%;height:10px" >
+     <span style="font-size:12px;position:absolute;bottom:20px;right:60px;;z-index:1"><input type="checkbox" id="chkshowlist" onclick="setShowList()" checked="true"><b>목록(타이틀) 보기</b></span>
+</div>
+-->
+<div class="custom_typecontrol3 radius_border">
+	<span id="btnGround" class="btn" onclick="setOverlayMapTypeId1()">지적편집도</span>
+	<span id="btnGroundHide" class="selected_btn" onclick="setOverlayMapTypeId2()">숨기기</span>
+</div>
+
+<div class="custom_typecontrol2 radius_border">
+	<span id="btnCurrentMe" class="selected_btn" onclick="mapCurrentPosition2()">내위치</span>
+	<span id="btnCurrentHideMe" class="btn" onclick="mapCurrentPositionHide()">숨기기</span>
+</div>
+
+
+
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=db5e240a23cac4964a755f6c22cddd21&libraries=clusterer"></script>
+<script>
+
+    var is_mobile = false;
+    var UserAgent = navigator.userAgent; 
+    if (UserAgent.match(/iPhone|iPod|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i) != null || UserAgent.match(/LG|SAMSUNG|Samsung/) != null) 
+    { 
+        //  go(); // 모바일 
+        is_mobile = true
+
+    } 
+    else 
+    { 
+        is_mobile = false;
+        alret(UserAgent);
+
+    } 
+    
+      
+    var Navi_Imgsrc = "";
+    
+    var UserAgent = navigator.userAgent;
+    var UADevice = UserAgent.match(/iPhone|iPod|iPad|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i);
+    var UAVendor = UserAgent.match(/LG|SAMSUNG|Samsung/);
+    if (UADevice !== null || UAVendor !== null) {
+        Navi_Imgsrc = "<img src=/map/kakaonavi_btn_medium.png><br>";
+    }
+    
+    var geocoder = new daum.maps.services.Geocoder();
+    var imageSrc = 'http://tistory4.daumcdn.net/tistory/1874250/skin/images/mark01.png', // 마커이미지의 주소입니다    
+        imageSize = new daum.maps.Size(40, 42), // 마커이미지의 크기입니다
+        imageOption = {offset: new daum.maps.Point(13, 40)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.        
+    
+    
+    
+    
+    var myMarker;
+    
+    
+    navigator.geolocation.getCurrentPosition(function(pos) {
+    
+    
+            myPosLat = pos.coords.latitude;
+            myPosLng = pos.coords.longitude;
+    
+            var markerImage = new daum.maps.MarkerImage("/map/pin_me.png", new daum.maps.Size(56, 49), {offset: new daum.maps.Point(28, 49)});
+            myMarker = new daum.maps.Marker({
+                map: map,
+                position: new daum.maps.LatLng(myPosLat, myPosLng),
+                image: markerImage,
+                title : "내위치"
+            });
+                        myMarker.setVisible(true);
+    
+    });
+    
+    
+    
+    function mapCurrentPosition2(){
+        // 내 위치 표시
+    
+            navigator.geolocation.getCurrentPosition(function(pos) {
+    
+                myPosLat = pos.coords.latitude;
+                myPosLng = pos.coords.longitude;
+    
+    //			marker.setPosition(LatLng(myPosLat, myPosLng));
+                myMarker.setPosition(new daum.maps.LatLng(myPosLat, myPosLng));
+                map.setCenter(new daum.maps.LatLng(myPosLat, myPosLng));
+    
+                myMarker.setVisible(true);
+            btnCurrentMe.className = 'selected_btn';
+            btnCurrentHideMe.className = 'btn';     
+    
+            });
+        //--내 위치 표시
+    }
+    
+    
+    function mapCurrentPositionHide(){
+                myMarker.setVisible(false);
+            btnCurrentMe.className = 'btn';
+            btnCurrentHideMe.className = 'selected_btn';     
+    }
+    
+      // input your appkey
+      Kakao.init('5d7bfce9066384f13eae385f24734c90')
+    function navi(m_name, num) {
+        var m_x = parseFloat(m_showlist[num].LNG);
+        var m_y = parseFloat(m_showlist[num].LAT);     
+        
+        Kakao.Navi.start({
+          name: m_name,
+          x: m_x,
+          y: m_y,
+          coordType: 'wgs84'
+        })
+    }
+    
+    function navi2(m_name, p_m_y, p_m_x) {
+        var m_x = parseFloat(p_m_x);
+        var m_y = parseFloat(p_m_y);     
+        
+        Kakao.Navi.start({
+          name: m_name,
+          x: m_x,
+          y: m_y,
+          coordType: 'wgs84'
+        })
+    }
+    
+    // 주소-좌표 변환 객체를 생성합니다 
+    geocoder.addressSearch('제주시 남광로 99', function(result, status ) {
+         if (status === daum.maps.services.Status.OK) {  var markerImage = new daum.maps.MarkerImage('http://ajubang.com/map/user/firehydrant.png', imageSize, imageOption);      
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);   var marker = new daum.maps.Marker({ map: map, position: coords,   image:markerImage});
+            var infowindow = new daum.maps.InfoWindow({removable:true, content: '<div class="showlistbox"><a id=navi href=javascript:navi("1.소화전",0);>'.concat(Navi_Imgsrc,'</a><b>1.소화전</b><br>제주시 남광로 99<br>직장, 정원수: 212</div>')
+            });  daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));  daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));   daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));             
+            m_showlist[0] = {"LAT":result[0].y, "LNG" :result[0].x};   
+     
+        var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: new daum.maps.LatLng(result[0].y, result[0].x), content: '<div class ="label"><span class="left"></span><span class="center">소화전</span><span class="right"></span></div>', xAnchor: 0.5, yAnchor: 0.54, zIndex:-1});
+            customOverlay.setMap(map);				 
+         }         });   
+    
+    geocoder.addressSearch('제주특별자치도 제주시 간월동로5길 10 (아라이동)', function(result, status ) {
+         if (status === daum.maps.services.Status.OK) {  var markerImage = new daum.maps.MarkerImage('http://tistory.daumcdn.net/tistory/1874250/skin/images/mark2.png', imageSize, imageOption);      
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);   var marker = new daum.maps.Marker({ map: map, position: coords,   image:markerImage});
+            var infowindow = new daum.maps.InfoWindow({removable:true, content: '<div class="showlistbox"><a id=navi href=javascript:navi("2.띠앗어린이집",1);>'.concat(Navi_Imgsrc,'</a><b>2.띠앗어린이집</b><br>제주특별자치도 제주시 간월동로5길 10 (아라이동)<br>가정, 정원수: 20</div>')
+            });  daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));  daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));   daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));             
+            m_showlist[1] = {"LAT":result[0].y, "LNG" :result[0].x};   
+     
+        var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: new daum.maps.LatLng(result[0].y, result[0].x), content: '<div class ="label"><span class="left"></span><span class="center">띠앗어린이집</span><span class="right"></span></div>', xAnchor: 0.5, yAnchor: 0.54, zIndex:-1});
+            customOverlay.setMap(map);				 
+         }         });   
+    
+    geocoder.addressSearch('제주특별자치도 제주시 간월동로5길 42 (아라이동)', function(result, status ) {
+         if (status === daum.maps.services.Status.OK) {  var markerImage = new daum.maps.MarkerImage('http://ajubang.com/map/user/rmark3.png', imageSize, imageOption);      
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);   var marker = new daum.maps.Marker({ map: map, position: coords,   image:markerImage});
+            var infowindow = new daum.maps.InfoWindow({removable:true, content: '<div class="showlistbox"><a id=navi href=javascript:navi("3.보현어린이집",2);>'.concat(Navi_Imgsrc,'</a><b>3.보현어린이집</b><br>제주특별자치도 제주시 간월동로5길 42 (아라이동)<br>민간, 정원수: 39</div>')
+            });  daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));  daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));   daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));             
+            m_showlist[2] = {"LAT":result[0].y, "LNG" :result[0].x};   
+     
+        var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: new daum.maps.LatLng(result[0].y, result[0].x), content: '<div class ="label"><span class="left"></span><span class="center">보현어린이집</span><span class="right"></span></div>', xAnchor: 0.5, yAnchor: 0.54, zIndex:-1});
+            customOverlay.setMap(map);				 
+         }         });   
+    
+    geocoder.addressSearch('제주특별자치도 제주시 간월동로5길 57-3 (아라동)', function(result, status ) {
+         if (status === daum.maps.services.Status.OK) {  var markerImage = new daum.maps.MarkerImage('http://ajubang.com/map/user/rmark4.png', imageSize, imageOption);      
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);   var marker = new daum.maps.Marker({ map: map, position: coords,   image:markerImage});
+            var infowindow = new daum.maps.InfoWindow({removable:true, content: '<div class="showlistbox"><a id=navi href=javascript:navi("4.튼튼어린이집",3);>'.concat(Navi_Imgsrc,'</a><b>4.튼튼어린이집</b><br>제주특별자치도 제주시 간월동로5길 57-3 (아라동)<br>민간, 정원수: 64</div>')
+            });  daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));  daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));   daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));             
+            m_showlist[3] = {"LAT":result[0].y, "LNG" :result[0].x};   
+     
+        var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: new daum.maps.LatLng(result[0].y, result[0].x), content: '<div class ="label"><span class="left"></span><span class="center">튼튼어린이집</span><span class="right"></span></div>', xAnchor: 0.5, yAnchor: 0.54, zIndex:-1});
+            customOverlay.setMap(map);				 
+         }         });   
+    
+    geocoder.addressSearch('제주특별자치도 제주시 이도이동 443', function(result, status ) {
+         if (status === daum.maps.services.Status.OK) {  var markerImage = new daum.maps.MarkerImage('http://ajubang.com/map/user/recycle.png', imageSize, imageOption);      
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);   var marker = new daum.maps.Marker({ map: map, position: coords,   image:markerImage});
+            var infowindow = new daum.maps.InfoWindow({removable:true, content: '<div class="showlistbox"><a id=navi href=javascript:navi("5.크린하우스",4);>'.concat(Navi_Imgsrc,'</a><b>5.크린하우스</b><br>제주특별자치도 제주시 이도이동 443<br>민간, 정원수: 39</div>')
+            });  daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));  daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));   daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));             
+            m_showlist[4] = {"LAT":result[0].y, "LNG" :result[0].x};   
+     
+        var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: new daum.maps.LatLng(result[0].y, result[0].x), content: '<div class ="label"><span class="left"></span><span class="center">크린하우스</span><span class="right"></span></div>', xAnchor: 0.5, yAnchor: 0.54, zIndex:-1});
+            customOverlay.setMap(map);				 
+         }         });   
+    
+    geocoder.addressSearch('제주특별자치도 제주시 거로남4길 11-6 (화북동)', function(result, status ) {
+         if (status === daum.maps.services.Status.OK) {  var markerImage = new daum.maps.MarkerImage('http://ajubang.com/map/user/gmark6.png', imageSize, imageOption);      
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);   var marker = new daum.maps.Marker({ map: map, position: coords,   image:markerImage});
+            var infowindow = new daum.maps.InfoWindow({removable:true, content: '<div class="showlistbox"><a id=navi href=javascript:navi("6.요요어린이집",5);>'.concat(Navi_Imgsrc,'</a><b>6.요요어린이집</b><br>제주특별자치도 제주시 거로남4길 11-6 (화북동)<br>민간, 정원수: 39</div>')
+            });  daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));  daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));   daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));             
+            m_showlist[5] = {"LAT":result[0].y, "LNG" :result[0].x};   
+     
+        var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: new daum.maps.LatLng(result[0].y, result[0].x), content: '<div class ="label"><span class="left"></span><span class="center">요요어린이집</span><span class="right"></span></div>', xAnchor: 0.5, yAnchor: 0.54, zIndex:-1});
+            customOverlay.setMap(map);				 
+         }         });   
+    
+    geocoder.addressSearch('제주특별자치도 제주시 거로남4길 21 (화북이동)', function(result, status ) {
+         if (status === daum.maps.services.Status.OK) {  var markerImage = new daum.maps.MarkerImage('http://ajubang.com/map/user/gmark7.png', imageSize, imageOption);      
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);   var marker = new daum.maps.Marker({ map: map, position: coords,   image:markerImage});
+            var infowindow = new daum.maps.InfoWindow({removable:true, content: '<div class="showlistbox"><a id=navi href=javascript:navi("7.동그라미어린이집",6);>'.concat(Navi_Imgsrc,'</a><b>7.동그라미어린이집</b><br>제주특별자치도 제주시 거로남4길 21 (화북이동)<br>민간, 정원수: 198</div>')
+            });  daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));  daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));   daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));             
+            m_showlist[6] = {"LAT":result[0].y, "LNG" :result[0].x};   
+     
+        var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: new daum.maps.LatLng(result[0].y, result[0].x), content: '<div class ="label"><span class="left"></span><span class="center">동그라미어린이집</span><span class="right"></span></div>', xAnchor: 0.5, yAnchor: 0.54, zIndex:-1});
+            customOverlay.setMap(map);				 
+         }         });   
+    
+    geocoder.addressSearch('제주특별자치도 제주시 거로남6길 48 (화북이동)', function(result, status ) {
+         if (status === daum.maps.services.Status.OK) {  var markerImage = new daum.maps.MarkerImage('http://tistory.daumcdn.net/tistory/1874250/skin/images/mark8.png', imageSize, imageOption);      
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);   var marker = new daum.maps.Marker({ map: map, position: coords,   image:markerImage});
+            var infowindow = new daum.maps.InfoWindow({removable:true, content: '<div class="showlistbox"><a id=navi href=javascript:navi("8.마야어린이집",7);>'.concat(Navi_Imgsrc,'</a><b>8.마야어린이집</b><br>제주특별자치도 제주시 거로남6길 48 (화북이동)<br>민간, 정원수: 39</div>')
+            });  daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));  daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));   daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));             
+            m_showlist[7] = {"LAT":result[0].y, "LNG" :result[0].x};   
+     
+        var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: new daum.maps.LatLng(result[0].y, result[0].x), content: '<div class ="label"><span class="left"></span><span class="center">마야어린이집</span><span class="right"></span></div>', xAnchor: 0.5, yAnchor: 0.54, zIndex:-1});
+            customOverlay.setMap(map);				 
+         }         });   
+    
+    geocoder.addressSearch('제주특별자치도 제주시 건주로2길 27-8 (삼양이동)', function(result, status ) {
+         if (status === daum.maps.services.Status.OK) {  var markerImage = new daum.maps.MarkerImage('http://ajubang.com/map/user/pmark9.png', imageSize, imageOption);      
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);   var marker = new daum.maps.Marker({ map: map, position: coords,   image:markerImage});
+            var infowindow = new daum.maps.InfoWindow({removable:true, content: '<div class="showlistbox"><a id=navi href=javascript:navi("9.프라임국제어린이집",8);>'.concat(Navi_Imgsrc,'</a><b>9.프라임국제어린이집</b><br>제주특별자치도 제주시 건주로2길 27-8 (삼양이동)<br>복지법인, 정원수: 58</div>')
+            });  daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));  daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));   daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));             
+            m_showlist[8] = {"LAT":result[0].y, "LNG" :result[0].x};   
+     
+        var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: new daum.maps.LatLng(result[0].y, result[0].x), content: '<div class ="label"><span class="left"></span><span class="center">프라임국제어린이집</span><span class="right"></span></div>', xAnchor: 0.5, yAnchor: 0.54, zIndex:-1});
+            customOverlay.setMap(map);				 
+         }         });   
+    
+    geocoder.addressSearch('제주특별자치도 제주시 건주로6길 15-3', function(result, status ) {
+         if (status === daum.maps.services.Status.OK) {  var markerImage = new daum.maps.MarkerImage('http://tistory.daumcdn.net/tistory/1874250/skin/images/mark10.png', imageSize, imageOption);      
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);   var marker = new daum.maps.Marker({ map: map, position: coords,   image:markerImage});
+            var infowindow = new daum.maps.InfoWindow({removable:true, content: '<div class="showlistbox"><a id=navi href=javascript:navi("10.아이꿈별어린이집",9);>'.concat(Navi_Imgsrc,'</a><b>10.아이꿈별어린이집</b><br>제주특별자치도 제주시 건주로6길 15-3<br>민간, 정원수: 210</div>')
+            });  daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));  daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));   daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));             
+            m_showlist[9] = {"LAT":result[0].y, "LNG" :result[0].x};   
+     
+        var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: new daum.maps.LatLng(result[0].y, result[0].x), content: '<div class ="label"><span class="left"></span><span class="center">아이꿈별어린이집</span><span class="right"></span></div>', xAnchor: 0.5, yAnchor: 0.54, zIndex:-1});
+            customOverlay.setMap(map);				 
+         }         });   
+    
+    geocoder.addressSearch('제주특별자치도 제주시 건주로7길 24-7 1층(도련일동)', function(result, status ) {
+         if (status === daum.maps.services.Status.OK) {  var markerImage = new daum.maps.MarkerImage('http://ajubang.com/map/user/cctv.png', imageSize, imageOption);      
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);   var marker = new daum.maps.Marker({ map: map, position: coords,   image:markerImage});
+            var infowindow = new daum.maps.InfoWindow({removable:true, content: '<div class="showlistbox"><a id=navi href=javascript:navi("11.CCTV",10);>'.concat(Navi_Imgsrc,'</a><b>11.CCTV</b><br>제주특별자치도 제주시 건주로7길 24-7 1층(도련일동)<br>가정, 정원수: 20</div>')
+            });  daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));  daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));   daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));             
+            m_showlist[10] = {"LAT":result[0].y, "LNG" :result[0].x};   
+     
+        var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: new daum.maps.LatLng(result[0].y, result[0].x), content: '<div class ="label"><span class="left"></span><span class="center">CCTV</span><span class="right"></span></div>', xAnchor: 0.5, yAnchor: 0.54, zIndex:-1});
+            customOverlay.setMap(map);				 
+         }         });   
+    
+    geocoder.addressSearch('제주특별자치도 제주시 고마로13길 22-1 (일도이동)', function(result, status ) {
+         if (status === daum.maps.services.Status.OK) {  var markerImage = new daum.maps.MarkerImage('http://tistory.daumcdn.net/tistory/1874250/skin/images/mark12.png', imageSize, imageOption);      
+            var coords = new daum.maps.LatLng(result[0].y, result[0].x);   var marker = new daum.maps.Marker({ map: map, position: coords,   image:markerImage});
+            var infowindow = new daum.maps.InfoWindow({removable:true, content: '<div class="showlistbox"><a id=navi href=javascript:navi("12.한라어린이집",11);>'.concat(Navi_Imgsrc,'</a><b>12.한라어린이집</b><br>제주특별자치도 제주시 고마로13길 22-1 (일도이동)<br>가정, 정원수: 20</div>')
+            });  daum.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));  daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));   daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));             
+            m_showlist[11] = {"LAT":result[0].y, "LNG" :result[0].x};   
+     
+        var customOverlay = new daum.maps.CustomOverlay({clickable: false, position: new daum.maps.LatLng(result[0].y, result[0].x), content: '<div class ="label"><span class="left"></span><span class="center">한라어린이집</span><span class="right"></span></div>', xAnchor: 0.5, yAnchor: 0.54, zIndex:-1});
+            customOverlay.setMap(map);				 
+         }         });   
+    
+    
+        
+    </script>
+    <div id="menu_wrap" class="bg_white" style="border:1px solid #919191;border-radius:10px;">
+    <div  style="cursor: pointer;" onClick="setCenter(m_showlist[0].LAT,m_showlist[0].LNG)">1.소화전</div>
+    <div  style="cursor: pointer;" onClick="setCenter(m_showlist[1].LAT,m_showlist[1].LNG)">2.띠앗어린이집</div>
+    <div  style="cursor: pointer;" onClick="setCenter(m_showlist[2].LAT,m_showlist[2].LNG)">3.보현어린이집</div>
+    <div  style="cursor: pointer;" onClick="setCenter(m_showlist[3].LAT,m_showlist[3].LNG)">4.튼튼어린이집</div>
+    <div  style="cursor: pointer;" onClick="setCenter(m_showlist[4].LAT,m_showlist[4].LNG)">5.크린하우스</div>
+    <div  style="cursor: pointer;" onClick="setCenter(m_showlist[5].LAT,m_showlist[5].LNG)">6.요요어린이집</div>
+    <div  style="cursor: pointer;" onClick="setCenter(m_showlist[6].LAT,m_showlist[6].LNG)">7.동그라미어린이집</div>
+    <div  style="cursor: pointer;" onClick="setCenter(m_showlist[7].LAT,m_showlist[7].LNG)">8.마야어린이집</div>
+    <div  style="cursor: pointer;" onClick="setCenter(m_showlist[8].LAT,m_showlist[8].LNG)">9.프라임국제어린이집</div>
+    <div  style="cursor: pointer;" onClick="setCenter(m_showlist[9].LAT,m_showlist[9].LNG)">10.아이꿈별어린이집</div>
+    <div  style="cursor: pointer;" onClick="setCenter(m_showlist[10].LAT,m_showlist[10].LNG)">11.CCTV</div>
+    <div  style="cursor: pointer;" onClick="setCenter(m_showlist[11].LAT,m_showlist[11].LNG)">12.한라어린이집</div>
+    </div>
+    
+    
+    
+    
+    <script>setCenter(33.497246672,126.545214401)</script>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>연습</title>
+	<style>
+
+html, body {width:100%;height:100%;margin:0;padding:0;overflow: hidden} 
+.map_wrap {position:relative;overflow:hidden;width:100%;height:350px;}
+.radius_border{border:1px solid #919191;border-radius:5px;}     
+.custom_typecontrol {position:absolute;bottom:20px;left:5px;overflow:hidden;width:130px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol span {display:block;width:65px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol .selected_btn:hover {color:#fff;}   
+
+
+.custom_typecontrol2 {position:absolute;bottom:20px;left:410px;overflow:hidden;width:140px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol2 span {display:block;width:70px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol2 .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol2 .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol2 .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol2 .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol2 .selected_btn:hover {color:#fff;}   
+
+
+
+.custom_typecontrol3 {position:absolute;bottom:20px;left:160px;overflow:hidden;width:140px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol3 span {display:block;width:70px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol3 .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol3 .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol3 .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol3 .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol3 .selected_btn:hover {color:#fff;}   
+
+
+.custom_typecontrol4 {position:absolute;bottom:20px; right:22px;overflow:hidden;width:160px;height:25px;margin:0;padding:0;z-index:1;font-size:12px;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;}
+.custom_typecontrol4 span {display:block;width:80px;height:30px;float:left;text-align:center;line-height:25px;cursor:pointer;}
+.custom_typecontrol4 .btn {background:#fff;background:linear-gradient(#fff,  #e6e6e6);}       
+.custom_typecontrol4 .btn:hover {background:#f5f5f5;background:linear-gradient(#f5f5f5,#e3e3e3);}
+.custom_typecontrol4 .btn:active {background:#e6e6e6;background:linear-gradient(#e6e6e6, #fff);}    
+.custom_typecontrol4 .selected_btn {color:#fff;background:#425470;background:linear-gradient(#425470, #5b6d8a);}
+.custom_typecontrol4 .selected_btn:hover {color:#fff;}   
+
+
+
+.label {margin-bottom: 96px;}
+.label * {display: inline-block;vertical-align: top;}
+.label .left {background: url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png") no-repeat;display: inline-block;height: 24px;overflow: hidden;vertical-align: top;width: 7px;}
+.label .center {background: url(http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png) repeat-x;display: inline-block;height: 24px;font-size: 12px;line-height: 24px;}
+.label .right {background: url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png") -1px 0  no-repeat;display: inline-block;height: 24px;overflow: hidden;width: 6px;}
+
+
+.showlistbox {width:300px;line-height:17px;text-align:center;padding:3px 0;font-size:12px;border-radius:3px;font-family:Malgun Gothic, 맑은 고딕, sans-serif;)}
+
+
+   
+#menu_wrap {position:absolute;top:13;right:5;bottom:48;width:180px;margin:3px 0 5px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.8);z-index: 1;font-size:12px;border-radius: 0px;}
+.bg_white {background:#fff;}
+#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#menu_wrap .option{text-align: center;}
+    
+    
+#container {overflow:hidden;height:100%;position:relative;}
+#mapWrapper {width:100%;height:100%;z-index:1;}
+#rvWrapper {width:50%;height:100%;top:0;right:0;position:absolute;z-index:0;}
+#container.view_roadview #mapWrapper {width: 50%;}
+#roadviewControl {position:absolute;bottom:15px;left:320px;width:65px;height:25px;padding:2px;z-index: 1;background: #f7f7f7;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;cursor: pointer;}
+#roadviewControl span {background: url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mapworker.png) no-repeat;  padding-left:23px;height:24px;font-size: 12px;display: inline-block;line-height: 2;font-weight: bold;}
+#roadviewControl.active {background: #ccc;box-shadow: 0px 1px #5F616D;border: 1px solid #7F818A;}
+#roadviewControl.active span {background: url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mapworker_on.png) no-repeat;color: #4C4E57;}
+#close {position: absolute;padding: 4px;top: 5px;left: 5px;cursor: pointer;background: #fff;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;}
+#close .img {display: block;background: url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;width: 14px;height: 14px;}    
+
+
+
+
+.info {position:relative;top:5px;left:5px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;font-size:12px;padding:5px;background:#fff;list-style:none;margin:0;} 
+.info:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}    
+.info .label {display:inline-block;width:50px;}
+.number {font-weight:bold;color:#00a0e9;} 
+
+
+	</style>
+
+</head>
+
+	<body>
+	<div id="container">
+			<div id="mapWrapper">
+			<div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
+			</div>
+	</div>
+
+	<div class="custom_typecontrol radius_border">
+		<span id="btnGround" class="btn" onclick="setOverlayMapTypeId1()">지적편집도</span>
+		<span id="btnGroundHide" class="selected_btn" onclick="setOverlayMapTypeId2()">숨기기</span>
+	</div>
+
+	<div class="custom_typecontrol2 radius_border">
+		<span id="btnCurrentMe" class="btn"  onclick="getCurrentPosBtn()">내위치</span>
+		<span id="btnCurrentHideMe" class="selected_btn" onclick="mapCurrentPosHide()">숨기기</span>
+	</div>
+	
+
+	<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=db5e240a23cac4964a755f6c22cddd21&libraries=clusterer"></script>
+	<script>
+
+		var is_mobile = false;
+			var UserAgent = navigator.userAgent; 
+			if (UserAgent.match(/iPhone|iPod|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i) != null || UserAgent.match(/LG|SAMSUNG|Samsung/) != null) 
+			{ 
+				//  go(); // 모바일 
+				is_mobile = true
+			} 
+			else 
+			{ 
+				is_mobile = false;
+			} 
+
+
+
+
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(36.35613994325377, 127.33330258912929), // 지도의 중심좌표
+		        level: 4, // 지도의 확대 레벨
+		        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+		    }; 
+
+		   
+
+
+		    // 지도를 감싸고 있는 div의 크기를 조정하는 함수입니다
+			function toggleMapWrapper(active, position) {
+        if (active) {
+    
+            // 지도를 감싸고 있는 div의 너비가 100%가 되도록 class를 변경합니다 
+            container.className = '';
+    
+            // 지도의 크기가 변경되었기 때문에 relayout 함수를 호출합니다
+            map.relayout();
+    
+            // 지도의 너비가 변경될 때 지도중심을 입력받은 위치(position)로 설정합니다
+            map.setCenter(position);
+        } else {
+    
+            // 지도만 보여지고 있는 상태이면 지도의 너비가 50%가 되도록 class를 변경하여
+            // 로드뷰가 함께 표시되게 합니다
+            if (container.className.indexOf('view_roadview') === -1) {
+                container.className = 'view_roadview';
+    
+                // 지도의 크기가 변경되었기 때문에 relayout 함수를 호출합니다
+                map.relayout();
+    
+                // 지도의 너비가 변경될 때 지도중심을 입력받은 위치(position)로 설정합니다
+                map.setCenter(position);
+            }
+        }
+	}
+	
+	
+
+
+
+			function setOverlayMapTypeId1() {
+				var chkuseDistrict = document.getElementById('chkuseDistrict');
+				// 지도 타입을 제거합니다
+			for (var type in mapTypes) {
+				map.removeOverlayMapTypeId(mapTypes[type]);    
+			}
+				// 지적편집도정보 체크박스가 체크되어있으면 지도에 지적편집도정보 지도타입을 추가합니다
+					map.addOverlayMapTypeId(mapTypes.useDistrict);        
+			
+					btnGround.className = 'selected_btn';
+					btnGroundHide.className = 'btn';     
+			} 
+			
+			function setOverlayMapTypeId2() {
+				var chkuseDistrict = document.getElementById('chkuseDistrict');
+				// 지도 타입을 제거합니다
+			for (var type in mapTypes) {
+				map.removeOverlayMapTypeId(mapTypes[type]);    
+			}
+					btnGround.className = 'btn';
+					btnGroundHide.className = 'selected_btn';  
+				
+			} 
+	
+
+
+
+		// 지도를 생성한다 
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+
+		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+		// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+		var zoomControl = new kakao.maps.ZoomControl();
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+		// 마커 클러스터러를 생성합니다 
+		var clusterer = new kakao.maps.MarkerClusterer({
+        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+        minLevel: 10 // 클러스터 할 최소 지도 레벨 
+    	});
+
+		// 지도 타입 정보를 가지고 있을 객체입니다
+        // map.addOverlayMapTypeId 함수로 추가된 지도 타입은
+        // 가장 나중에 추가된 지도 타입이 가장 앞에 표시됩니다
+        // 이 예제에서는 지도 타입을 추가할 때 지적편집도, 지형정보, 교통정보, 자전거도로 정보 순으로 추가하므로
+        // 자전거 도로 정보가 가장 앞에 표시됩니다
+        var mapTypes = {
+            useDistrict : kakao.maps.MapTypeId.USE_DISTRICT
+        };
+
+		var me;
+
+		function locationLoadSuccess(pos){
+		// 현재 위치 받아오기
+		var currentPos = new kakao.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
+
+		// 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
+		map.panTo(currentPos);
+
+		// 마커 생성
+		var me = new kakao.maps.Marker({
+			position: currentPos
+		});
+
+		// 기존에 마커가 있다면 제거
+		me.setMap(null);
+		me.setMap(map);
+		};
+
+		function locationLoadError(pos){
+			alert('위치 정보를 가져오는데 실패했습니다.');
+		};
+
+
+
+
+		// 위치 가져오기 버튼 클릭시
+		function getCurrentPosBtn(){
+			navigator.geolocation.getCurrentPosition(locationLoadSuccess,locationLoadError);
+			btnCurrentMe.className = 'selected_btn';
+			btnCurrentHideMe.className = 'btn'
+		};
+
+		function mapCurrentPosHide(){
+			me.setMap(null);
+			btnCurrentMe.className = 'btn';
+			btnCurrentHideMe.className = 'selected_btn';     
+		}
+
+
+
+
+
+
+
+		var data = [
+			[36.35613994325377, 127.33330258912929,'<div style="padding:5px;"> 1</div>','<div class ="label">카카오!</div>'],
+			[36.36077113212849, 127.33587773842896,'<div style="padding:5px;"> 2</div>','<div style="padding:0 5px;background:#fff;">카카오!</div>'],
+			[36.35467103799297, 127.3283888850169,'<div style="padding:5px;"> 3</div>','<div class ="label"><span class="left"></span><span class="center">카카오!</span><span class="right"></span></div>']
+		]
+		
+		var markers = [];
+
+		var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+		for (var i=0; i < data.length; i++){
+
+		var positions = new kakao.maps.LatLng(data[i][0],data[i][1]);
+		var positions1 = new kakao.maps.LatLng(data[i][0],data[i][1]);
+		var contents = data[i][2];
+		var contents1 = data[i][3];
+
+		// 지도에 마커를 생성하고 표시한다
+		var marker = new kakao.maps.Marker({
+		    position: positions, // 마커의 좌표
+			map: map
+		});
+
+		// 커스텀 오버레이를 생성합니다
+		var customOverlay = new kakao.maps.CustomOverlay({
+		position: positions1,
+ 		content: contents1,
+		xAnchor: 0.5, // 컨텐츠의 x 위치
+		yAnchor: 3 // 컨텐츠의 y 위치
+			});
+
+        // 마커 위에 표시할 인포윈도우를 생성한다
+		var infowindow = new kakao.maps.InfoWindow({
+		    content :  contents,
+		    removable : iwRemoveable	
+		});
+
+		// 마커에 클릭이벤트를 등록합니다
+		kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+      	
+			
+		// 커스텀 오버레이를 지도에 표시합니다
+		customOverlay.setMap(map);	
+		
+		markers.push(marker);	
+		}
+
+		// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+		function makeOverListener(map, marker, infowindow){
+		return function() {
+		infowindow.open(map, marker);  
+			};
+		}
+
+
+		clusterer.addMarkers(markers);
+
+	</script>
+</body>
+</html>
