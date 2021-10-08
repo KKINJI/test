@@ -1,4 +1,4 @@
-export default [
+export let data = [
 	{
 	  "question": "저는 몇살 일까요?",
 	  "anwser": "1993년에 태어난 28살입니다.",
