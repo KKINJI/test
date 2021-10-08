@@ -1,3 +1,3 @@
-import data from "./call.js"
+import {data} from "./call.js"
 
 console.log(data);
