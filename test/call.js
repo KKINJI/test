@@ -23,4 +23,4 @@ export default [
 	  "question": "저의 취미는 무엇일까요?",
 	  "anwser": "요즘은 JS관련 구글링..? ^^.",
 	}
-  ];
+  ]
