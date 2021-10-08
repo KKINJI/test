@@ -1,3 +1,3 @@
-unoirt {hello} from ".api.js"
+export {hello} from ".api.js"
 
 console.log(hello.world)
