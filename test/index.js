@@ -1,3 +1,3 @@
-import {hello} from ".api.js"
+import {hello} from "./api.js"
 
 console.log(hello.world)
