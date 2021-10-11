@@ -74,8 +74,7 @@
                 btnGroundHide.className = 'btn';     
         } 
 
-        document.getElementById("setOverlayMapTypeId1").addEventListener("setOverlayMapTypeId1");
-        
+    
         function setOverlayMapTypeId2() {
             var chkuseDistrict = document.getElementById('chkuseDistrict');
             // 지도 타입을 제거합니다
