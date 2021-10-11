@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>GPS</title>
+	<title>marker</title>
 	<style>
 
 	html, body {width:100%;height:100%;margin:0;padding:0;overflow: hidden} 
@@ -228,14 +228,12 @@
 
 
 
+    //marking
 
-
-		var data = [
-			[36.35613994325377, 127.33330258912929,'<div style="padding:5px;"> 1</div>','<div class ="label">카카오!</div>'],
-			[36.36077113212849, 127.33587773842896,'<div style="padding:5px;"> 2</div>','<div style="padding:0 5px;background:#fff;">카카오!</div>'],
-			[36.35467103799297, 127.3283888850169,'<div style="padding:5px;"> 3</div>','<div class ="label"><span class="left"></span><span class="center">카카오!</span><span class="right"></span></div>']
-		]
+		import { data } from "../markerData.js";
 		
+
+        
 		var markers = [];
 
 		var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
@@ -283,7 +281,8 @@
 		infowindow.open(map, marker);  
 			};
 		}
-
+    
+    //marking
 
 		clusterer.addMarkers(markers);
 
