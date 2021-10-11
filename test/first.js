@@ -57,7 +57,10 @@
 
 
     //지적편집도
-
+        var Overlay = document.getElementById('Ov');
+        Ov.addEventListener('click', function(setOverlayMapTypeId1){
+       })
+        
         function setOverlayMapTypeId1() {
             var chkuseDistrict = document.getElementById('chkuseDistrict');
             // 지도 타입을 제거합니다
