@@ -57,8 +57,8 @@
 
 
     //지적편집도
-        var Overlay = document.getElementById('Ov');
-        Ov.addEventListener('click', function(setOverlayMapTypeId1){
+        var Overlay = document.getElementById('btnGround');
+        Overlay.addEventListener('click', function(setOverlayMapTypeId1){
        })
         
         function setOverlayMapTypeId1() {
