@@ -1,4 +1,4 @@
-export const markerdata = [
+export const data = [
 	{
 	  title: "콜드스퀘어",
 	  lat: 36.35613994325377,
