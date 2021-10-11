@@ -21,7 +21,7 @@
             center: new kakao.maps.LatLng(36.35613994325377, 127.33330258912929), // 지도의 중심좌표
             level: 4, // 지도의 확대 레벨
             mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-        }; 
+        };
 
        
 
