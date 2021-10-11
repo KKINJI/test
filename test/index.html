@@ -231,7 +231,9 @@
     //marking
 		fetch('./data1.json')
 		 .then(res => res.json())
-		 .catch((error) => console.log("error:",error));
+		 .tehn(data => {
+			 console.log(data)
+		 })
 		 
 
         
