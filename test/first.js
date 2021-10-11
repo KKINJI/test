@@ -56,7 +56,7 @@
 
 
 
-
+    //지적편집도
 
         function setOverlayMapTypeId1() {
             var chkuseDistrict = document.getElementById('chkuseDistrict');
@@ -70,6 +70,8 @@
                 btnGround.className = 'selected_btn';
                 btnGroundHide.className = 'btn';     
         } 
+
+        document.getElementById("setOverlayMapTypeId1").addEventListener("setOverlayMapTypeId1");
         
         function setOverlayMapTypeId2() {
             var chkuseDistrict = document.getElementById('chkuseDistrict');
@@ -82,7 +84,7 @@
             
         } 
 
-
+    //지적편집도
 
 
     // 지도를 생성한다 
