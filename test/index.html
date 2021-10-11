@@ -230,7 +230,8 @@
 
     //marking
 
-		import { data } from "markerData.js";
+		const data = await fetch("./data1.json");
+        const dataJSON = await data.json();
 		
 
         
